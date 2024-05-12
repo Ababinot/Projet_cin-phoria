@@ -16,7 +16,7 @@
       <div class="left">
         <h5>Films</h5>
         <h1>Nos derniers films</h1>
-        <p>Retrouvez tous nos derniers films depuis mercredi dernier</p>
+        <p>Retrouvez  nos derniers films depuis mercredi dernier</p>
       </div>
       <div class="right">
         <button @click="voirTousLesFilms">Voir tous les films</button>
