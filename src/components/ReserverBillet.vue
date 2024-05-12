@@ -7,11 +7,11 @@
   
   <script>
   export default {
-    // Ajoutez ici la logique de votre composant
+    
   };
   </script>
   
   <style scoped>
-    /* @import url('src/styles/ListeFilms.css'); */
+
   </style>
   

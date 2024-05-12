@@ -1,0 +1,170 @@
+.page-accueil {
+    text-align: center;
+  }
+  
+  .content {
+    display: flex;
+    align-items: center;
+    padding: 6rem;
+  }
+  
+  .image {
+    max-width: 50%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+  }
+  
+  .img-accueil {
+    width: 100%;
+    height: auto;
+  }
+  
+  .text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+    margin-right: 2rem;
+  }
+  
+  .text h1 {
+    font-size: 4rem;
+  }
+  
+  .text p {
+    font-size: 1rem;
+  }
+  
+  /* Nouveau bloc ajouté */
+  .second-block {
+    background-color: var(--couleur-secondaire);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5rem;
+  }
+  
+  .left {
+    text-align: left;
+  }
+  
+  .left h5 {
+    font-size: 1.5rem;
+  }
+  
+  .left h1 {
+    font-size: 2rem;
+  }
+  
+  .left p {
+    font-size: 1rem;
+  }
+  
+  .right button {
+    background-color: #5B2333;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style pour le carrousel d'images */
+  .carousel {
+    background-color: var(--couleur-secondaire);
+    margin-top: 3rem;
+    position: relative;
+    margin-bottom: 3rem;
+    overflow: hidden;
+    /* Cache les éléments qui dépassent du carrousel */
+  }
+  
+  .slide-container {
+    display: inline-block;
+    /* Permet d'aligner les éléments sur la même ligne */
+    white-space: nowrap;
+    /* Empêche le retour à la ligne */
+  }
+  
+  .slide {
+    display: inline-block;
+    /* Aligne les éléments sur la même ligne */
+    vertical-align: top;
+    /* Aligne les éléments en haut */
+    margin-right: 20px;
+    /* Espacement entre les éléments */
+  }
+  
+  .carousel-img {
+    max-width: 210px;
+    /* Largeur maximale pour les images */
+    height: auto;
+    /* Hauteur ajustée automatiquement */
+  }
+  
+  .slide h3 {
+    margin-top: 1rem;
+  }
+  
+  .slide p {
+    margin-top: 0.5rem;
+  }
+  
+  /* Style pour la pagination */
+  .pagination {
+  
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  
+  }
+  
+  .pagination span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .pagination span.active {
+    background-color: #333;
+  }
+  
+  
+  /* Styles pour le quatrième bloc */
+  
+  
+  .left-4 {
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+    padding-right: 2rem;
+    /* Ajoute un espace entre le texte et l'image */
+  }
+  
+  .left-4 h5 {
+    font-size: 1.5rem;
+  }
+  
+  .left-4 h1 {
+    font-size: 2rem;
+  }
+  
+  .left-4 p {
+    font-size: 1rem;
+  }
+  
+  .left-4 button {
+    background-color: #5B2333;
+    /* Couleur de fond primaire */
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
