@@ -1,0 +1,18 @@
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+
+test:
+  stage: test
+  script:
+    - npm run test
+
+deploy:
+  stage: deploy
+  script:
+    - scp -r dist/ user@server:/path/to/deploy
+
+variables:
+  SSH_PRIVATE_KEY: "$SSH_PRIVATE_KEY"
