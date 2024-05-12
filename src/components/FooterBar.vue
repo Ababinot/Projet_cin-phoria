@@ -111,4 +111,4 @@ export default {
     text-decoration: underline;
     /* Ajoute un soulignement au survol */
 }
-</style>
+</style>;
