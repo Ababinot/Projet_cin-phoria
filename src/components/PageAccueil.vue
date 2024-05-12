@@ -12,19 +12,20 @@
     </div>
 
     <!-- Deuxième bloc -->
-    <div class="second-block">
-      <div class="left">
-        <h5>Films</h5>
-        <h1>Nos derniers films</h1>
-        <p>Retrouvez tout nos derniers films depuis mercredi dernier</p>
+    
+      <div class="second-block">
+        <div class="left">
+          <h5>Films</h5>
+          <h1>Nos derniers films</h1>
+          <p>Retrouvez tout nos derniers films depuis mercredi dernier</p>
+        </div>
+        <div class="right">
+          <button @click="voirTousLesFilms">Voir tous les films</button>
+        </div>
       </div>
-      <div class="right">
-        <button @click="voirTousLesFilms">Voir tous les films</button>
-      </div>
-    </div>
 
-    <!-- Troisième bloc (carrousel d'images) -->
-    <div>
+      <!-- Troisième bloc (carrousel d'images) -->
+
       <div class="carousel">
         <div class="slide-container" ref="slideContainer">
           <!-- Dupliquer les éléments de films pour un carrousel infini -->
@@ -40,11 +41,6 @@
             @click="goToPage(index)"></span>
         </div>
       </div>
-
-    </div>
-
-
-    <!-- Quatrième bloc -->
     <!-- Quatrième bloc -->
     <div class="content fourth-block">
       <div class="left-4">
@@ -170,6 +166,7 @@ export default {
 
 /* Nouveau bloc ajouté */
 .second-block {
+  background-color: var(--couleur-secondaire);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -203,6 +200,7 @@ export default {
 
 /* Style pour le carrousel d'images */
 .carousel {
+  background-color: var(--couleur-secondaire);
   margin-top: 3rem;
   position: relative;
   margin-bottom: 3rem;
@@ -297,11 +295,6 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-
-/* Styles pour le quatrième bloc */
-.fourth-block {
-  background-color: var(--couleur-secondaire); /* Couleur de fond */
 }
 
 </style>
