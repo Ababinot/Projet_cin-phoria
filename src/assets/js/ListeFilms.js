@@ -10,6 +10,8 @@ export default {
       titre:'Avengers',
       description:'Avengers est un film de super-héros américain écrit et réalisé par Joss Whedon, sorti en 2012. Il est basé du même nom (les Avengers) apparaissant dans le comic book publié par Marvel Comics. Il s\'agit du sixième film de l\'univers cinématographique Marvel, débuté en 2008, et du premier de la phase II.',
       rating: 4,
+      minAge: 12,
+      isFavorite: this.rating === 5
     };
   },
   methods: {
