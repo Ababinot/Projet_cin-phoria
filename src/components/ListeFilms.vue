@@ -39,11 +39,31 @@
     </div>
     <button class="filtre" @click="filtre">Filtrer</button>
   </div>
+
+  <div class="custom-card">
+    <div class="image-container">
+      <img src="@/assets/accueil2.jpg" alt="Image" />
+    </div>
+    <div class="content">
+      <div class="line">
+        <div class="title">{{ titre }}</div>
+      </div>
+      <div class="line">
+        <div class="description">{{ description }}</div>
+      </div>
+      <div class="line">
+        <div class="rating">
+          <span v-for="n in 5" :key="n" class="star">{{ n <= rating ? '★' : '☆' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import ListeFilmsData from '@/assets/js/ListeFilms.js'; // Importation des données exportées depuis PageAccueil.js
 export default {
+  props: ListeFilmsData.props, // Utilisation des props exportées
   name: 'ListeFilms',
   data() {
     return ListeFilmsData.data(); // Utilisation des données exportées
