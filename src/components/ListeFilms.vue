@@ -42,9 +42,14 @@
 
   <div class="custom-card">
     <div class="image-container">
+      <div class="min-age">-{{ minAge }}</div>
       <img src="@/assets/accueil2.jpg" alt="Image" />
+      <div v-if="isFavorite" class="heart-icon">
+        <i class="fas fa-heart"></i>
+      </div>
     </div>
     <div class="content">
+
       <div class="line">
         <div class="title">{{ titre }}</div>
       </div>
