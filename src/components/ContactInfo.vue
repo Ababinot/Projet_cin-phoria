@@ -5,13 +5,13 @@
       <!-- Champ Nom (facultatif) -->
       <div class="input-group">
         <label for="nom">Nom</label>
-        <input type="text" id="nom" v-model="nom" placeholder="Entrez votre nom (facultatif)" />
+        <input type="text" id="nom" v-model="nom" placeholder="Nom (facultatif)" />
       </div>
       
       <!-- Champ Titre de la demande -->
       <div class="input-group">
-        <label for="titre">Titre de la demande</label>
-        <input type="text" id="titre" v-model="titre" placeholder="Entrez le titre de votre demande" required />
+        <label for="titre">Titre</label>
+        <input type="text" id="titre" v-model="titre" placeholder="Titre de votre demande" required />
       </div>
       
       <!-- Champ Description -->
