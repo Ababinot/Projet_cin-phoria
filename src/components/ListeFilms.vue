@@ -40,29 +40,46 @@
     <button class="filtre" @click="filtre">Filtrer</button>
   </div>
 
-  <div class="custom-card">
+  <div class="film-cards">
+  <div v-for="index in 7" :key="index" class="custom-card" @click="openPopup(index)">
     <div class="image-container">
       <div class="min-age">-{{ minAge }}</div>
-      <img src="@/assets/accueil2.jpg" alt="Image" />
+      <img :src="'@/'+filmImages[index]" alt="Image" />
       <div v-if="isFavorite" class="heart-icon">
         <i class="fas fa-heart"></i>
       </div>
     </div>
     <div class="content">
-
       <div class="line">
-        <div class="title">{{ titre }}</div>
+        <div class="title">{{ titles[index] }}</div>
       </div>
       <div class="line">
-        <div class="description">{{ formatDescription(description) }}</div>
+        <div class="description">{{ descriptions[index] }}</div>
       </div>
       <div class="line">
         <div class="rating">
-          <span v-for="n in 5" :key="n" class="star">{{ n <= rating ? '★' : '☆' }}</span>
+          <span v-for="n in 5" :key="n" class="star">{{ n <= ratings[index] ? '★' : '☆' }}</span>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
+  <dialog ref="popup" class="film-popup">
+    <div class="popup-content">
+      <img :src="selectedFilmImage" alt="Popup Image" />
+      <div class="film-details">
+        <h2>{{ selectedFilmTitle }}</h2>
+        <p>{{ selectedFilmDescription }}</p>
+        <div class="popup-rating">
+          <span v-for="n in 5" :key="n" class="star">{{ n <= selectedFilmRating ? '★' : '☆' }}</span>
+        </div>
+      </div>
+    </div>
+    <button @click="closePopup">Fermer</button>
+  </dialog>
+
 </template>
 
 <script>
@@ -70,6 +87,7 @@ import ListeFilmsData from '@/assets/js/ListeFilms.js'; // Importation des donn�
 export default {
   props: ListeFilmsData.props, // Utilisation des props exportées
   name: 'ListeFilms',
+  computed: ListeFilmsData.computed, // Utilisation des computed exportées
   data() {
     return ListeFilmsData.data(); // Utilisation des données exportées
   },
