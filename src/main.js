@@ -5,6 +5,8 @@ import ListeFilms from './components/ListeFilms.vue';
 import ContactInfo from './components/ContactInfo.vue';
 import ReserverBillet from './components/ReserverBillet.vue';
 import ConnexionUser from './components/ConnexionUser.vue';
+import InscriptionUser from './components/InscriptionUser.vue';
+
 import App from './App.vue'; // Importez le composant racine de votre application (App.vue)
 import '@fortawesome/fontawesome-free/css/all.css';
 
@@ -17,6 +19,8 @@ const routes = [
   { path: '/contact', component: ContactInfo },
   { path: '/reserver', component: ReserverBillet },
   { path: '/connexion', component: ConnexionUser },
+  { path: '/inscription', component: InscriptionUser },
+ 
 ];
 
 const router = createRouter({
