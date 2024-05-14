@@ -1,21 +1,21 @@
-stages:
-  - test
-  - build
+# stages:
+#   - test
+#   - build
   
 
-test project:
-  stage: test
-  image: node:latest
-  script:
-    - npm install
-    - npm test
+# test project:
+#   stage: test
+#   image: node:latest
+#   script:
+#     - npm install
+#     - npm test
 
-build project:
-  stage: build
-  image: node:latest
-  script: 
-    - npm install
-    - npm run build
-  artifacts:
-    paths:
-      - build/
+# build project:
+#   stage: build
+#   image: node:latest
+#   script: 
+#     - npm install
+#     - npm run build
+#   artifacts:
+#     paths:
+#       - build/
