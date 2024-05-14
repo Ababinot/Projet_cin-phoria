@@ -2,12 +2,12 @@
   <div class="page-accueil">
 
     <!-- Premier bloc -->
-    <div class="content">
+    <div class="contentA">
       <div class="text">
         <h1>Cinéphoria votre référence cinématographique</h1>
         <p>Découvrez une sélection de films captivants</p>
       </div>
-      <div class="image">
+      <div class="imageA">
         <img src="@/assets/accueil.jpg" alt="image d'accueil" class="img-accueil" />
       </div>
     </div>
@@ -42,14 +42,14 @@
       </div>
       
     <!-- Quatrième bloc -->
-    <div class="content fourth-block">
+    <div class="contentA fourth-block">
       <div class="left-4">
         <h5>Réserver</h5>
         <h1>Réserver ma séance</h1>
         <p>Vous pouvez réserver votre séance en choisissant votre film ainsi que votre horaire</p>
         <button @click="voirSeancesDisponibles">Voir les séances disponibles</button>
       </div>
-      <div class="image">
+      <div class="imageA">
         <img src="@/assets/accueil2.jpg" alt="image d'accueil2" class="img-accueil" />
       </div>
     </div>

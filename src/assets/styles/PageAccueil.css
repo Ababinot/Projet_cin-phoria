@@ -2,13 +2,13 @@
     text-align: center;
   }
   
-  .content {
+  .contentA {
     display: flex;
     align-items: center;
     padding: 6rem;
   }
   
-  .image {
+  .imageA {
     max-width: 50%;
     flex-grow: 1;
     flex-shrink: 1;
