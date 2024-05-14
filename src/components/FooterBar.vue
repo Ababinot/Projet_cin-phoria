@@ -18,10 +18,10 @@
             <!-- Menu de navigation -->
             <nav class="nav-menu">
                 <div class="links">
-                    <router-link class="link" to="/">Accueil</router-link>
-                    <router-link class="link" to="/films">Films</router-link>
-                    <router-link class="link" to="/reserver">Réserver</router-link>
-                    <router-link class="link" to="/contact">Contact</router-link>
+                    <router-link class="linkF" to="/">Accueil</router-link>
+                    <router-link class="linkF" to="/films">Films</router-link>
+                    <router-link class="linkF" to="/reserver">Réserver</router-link>
+                    <router-link class="linkF" to="/contact">Contact</router-link>
                 </div>
             </nav>
         </div>
@@ -44,71 +44,5 @@ export default {
 </script>
 
 <style scoped>
-/* Styles pour le footer */
-.Footer {
-    background-color: var(--couleur-tertiaire);
-    /* Couleur de fond du footer */
-    color: white;
-    /* Couleur du texte */
-    padding: 20px;
-    /* Espacement intérieur */
-    display: flex;
-    justify-content: space-between;
-    /* Pour aligner les éléments horizontalement */
-}
-
-.left,
-.middle,
-.right {
-    flex: 1;
-    /* Les sections prennent le même espace */
-}
-
-.horaires,
-.copyright,
-.contact-info {
-    margin-bottom: 20px;
-    /* Espacement entre les sections */
-}
-
-.link{
-    color: white;
-    /* Couleur des liens */
-   
-}
-
-.nav-menu{
-    background-color: var(--couleur-tertiaire);
-}
-
-.nav-menu ul {
-    list-style: none;
-    /* Supprime les puces de la liste */
-    padding: 0;
-    /* Supprime le padding par défaut de la liste */
-}
-
-.nav-menu ul li {
-    display: inline-block;
-    /* Aligne les éléments horizontalement */
-    margin-right: 20px;
-    /* Espacement entre les éléments */
-}
-
-.nav-menu ul li:last-child {
-    margin-right: 0;
-    /* Pas de marge à droite pour le dernier élément */
-}
-
-.nav-menu ul li a {
-    color: white;
-    /* Couleur du texte des liens */
-    text-decoration: none;
-    /* Supprime le soulignement des liens */
-}
-
-.nav-menu ul li a:hover {
-    text-decoration: underline;
-    /* Ajoute un soulignement au survol */
-}
+@import '@/assets/styles/FooterBar.css';
 </style>;
