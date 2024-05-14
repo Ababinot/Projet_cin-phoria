@@ -6,7 +6,7 @@ export default {
       genre: '',
       jour: '',
       titre:'Avengers',
-      description:'Avengers est un',
+      description:'Avengers est un ',
       rating: 4,
     };
   },
