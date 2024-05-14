@@ -49,7 +49,7 @@
         <div class="title">{{ titre }}</div>
       </div>
       <div class="line">
-        <div class="description">{{ description }}</div>
+        <div class="description">{{ formatDescription(description) }}</div>
       </div>
       <div class="line">
         <div class="rating">
