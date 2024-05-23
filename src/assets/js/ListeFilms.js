@@ -1,21 +1,17 @@
 export default {
-
   props: ['titre', 'description', 'rating'],
 
   data() {
     return {
+      films: [],
       cinema: '',
       genre: '',
       jour: '',
       minAge: 12,
-      isFavorite: this.rating === 5,
-      filmImages: ['assets/accueil.jpg', 'assets/accueil1.jpg', 'assets/accueil.jpg', 'assets/accueil2.jpg', 'assets/accueil.jpg', 'assets/accueil2.jpg', 'assets/accueil.jpg'],
-      titles: ['Titre 1', 'Titre 2', 'Titre 3', 'Titre 4', 'Titre 5', 'Titre 6', 'Titre 7', 'Titre 8'],
-      descriptions: ['Description 1', 'Description 2', 'Description 3', 'Description 4', 'Description 5', 'Description 6', 'Description 7', 'Description 8'],
-      ratings: [3, 4, 5, 3, 4, 5, 3, 4],
       selectedFilmIndex: -1,
     };
   },
+
   methods: {
     filtre() {
       console.log('cinema', this.cinema);
@@ -33,26 +29,30 @@ export default {
       this.selectedFilmIndex = index;
       this.$refs.popup.showModal();
     },
+
     closePopup() {
+      this.selectedFilmIndex = -1;
       this.$refs.popup.close();
+    },
+
+    async fetchFilms() {
+      try {
+        const response = await fetch('http://localhost:3001/api/films');
+        const data = await response.json();
+        this.films = data;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des films :', error);
+      }
     },
   },
 
   computed: {
     selectedFilmImage() {
-      return this.filmImages[this.selectedFilmIndex];
-    },
-    selectedFilmTitle() {
-      return this.titles[this.selectedFilmIndex];
-    },
-    selectedFilmDescription() {
-      return this.descriptions[this.selectedFilmIndex];
-    },
-    selectedFilmRating() {
-      return this.ratings[this.selectedFilmIndex];
-    },
-    isFavorite() {
-      return this.selectedFilmIndex === 1; // Example of checking if it's a favorite film
+      return this.selectedFilmIndex !== -1 ? this.films[this.selectedFilmIndex].image : ''; // Assurez-vous d'avoir l'image réelle du film
     }
+  },
+
+  mounted() {
+    this.fetchFilms();
   }
 };

@@ -157,3 +157,98 @@ h2 {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+
+
+
+.film-popup {
+  position: relative;
+  padding: 0%;
+  border: 0cap;
+  border-radius: 8px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.img_pop_film {
+  width: 558px;
+  padding: 0%;
+  margin: 0%;
+}
+
+.heart-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: red;
+}
+
+.film-details {
+  margin-top: 20px;
+}
+
+.popup-rating .star {
+  font-size: 1.2em;
+  color: gold;
+}
+
+.popup-content {
+  display: flex;
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  margin: 0%;
+  padding: 0%;
+}
+
+.popup-left {
+  flex: 1;
+  padding-right: 20px; /* Ajustez l'espacement entre l'image et le contenu */
+}
+
+.popup-right {
+  flex: 2;
+  /* Ajustez l'espacement ou d'autres styles au besoin */
+}
+
+.showtimes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+.showtime {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.showtime button {
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background-color: var(--couleur-principale);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.showtime button:hover {
+  background-color: var(--couleur-secondaire);
+  color: var(--couleur-tertiaire);
+}
+
