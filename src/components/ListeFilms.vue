@@ -91,50 +91,6 @@
             <div>00h00 - 00h00</div>
             <div>00/00/0000</div>
           </div>
-          <div class="showtime">
-            <button>Réserver</button>
-            <div>2D/3D</div>
-            <div>00h00 - 00h00</div>
-            <div>00/00/0000</div>
-          </div>
-          <div class="showtime">
-            <button>Réserver</button>
-            <div>2D/3D</div>
-            <div>00h00 - 00h00</div>
-            <div>00/00/0000</div>
-          </div>
-          <div class="showtime">
-            <button>Réserver</button>
-            <div>2D/3D</div>
-            <div>00h00 - 00h00</div>
-            <div>00/00/0000</div>
-          </div>
-          <div class="showtime">
-            <button>Réserver</button>
-            <div>2D/3D</div>
-            <div>00h00 - 00h00</div>
-            <div>00/00/0000</div>
-          </div>
-          <div class="showtime">
-            <button>Réserver</button>
-            <div>2D/3D</div>
-            <div>00h00 - 00h00</div>
-            <div>00/00/0000</div>
-          </div>
-          <div class="showtime">
-            <button>Réserver</button>
-            <div>2D/3D</div>
-            <div>00h00 - 00h00</div>
-            <div>00/00/0000</div>
-          </div>
-          <div class="showtime">
-            <button>Réserver</button>
-            <div>2D/3D</div>
-            <div>00h00 - 00h00</div>
-            <div>00/00/0000</div>
-          </div>
-          
-          <!-- Répétez cette structure pour chaque horaire -->
         </div>
       </div>
     </div>
