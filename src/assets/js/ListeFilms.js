@@ -1,3 +1,4 @@
+
 export default {
   props: ['titre', 'description', 'rating'],
 
@@ -39,17 +40,12 @@ export default {
       try {
         const response = await fetch('http://localhost:3001/api/films');
         const data = await response.json();
+        console.log('Films data:', data);  // Ajoutez cette ligne pour voir les données récupérées
         this.films = data;
       } catch (error) {
         console.error('Erreur lors de la récupération des films :', error);
       }
     },
-  },
-
-  computed: {
-    selectedFilmImage() {
-      return this.selectedFilmIndex !== -1 ? this.films[this.selectedFilmIndex].image : ''; // Assurez-vous d'avoir l'image réelle du film
-    }
   },
 
   mounted() {
