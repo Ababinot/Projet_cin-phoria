@@ -69,19 +69,19 @@
   <dialog ref="popup" class="film-popup">
     <div class="popup-content">
       <div class="popup-left">
-        <div class="min-age">-{{ minAge }}</div>
-        <img src="@/assets/accueil1.jpg" alt="Popup Image" class="img_pop_film" />
+        <div class="min-age">-{{ selectedFilm.age_minimum }}</div>
+        <img :src="selectedFilm.image" alt="Popup Image" class="img_pop_film" />
+        <div v-if="selectedFilm.coup_de_coeur" class="heart-icon_pop_up">
+          <i class="fas fa-heart"></i>
+        </div>
       </div>
       <div class="popup-right">
         <button class="close-button" @click="closePopup">&times;</button>
-        <div v-if="isFavorite" class="heart-icon">
-          <i class="fas fa-heart"></i>
-        </div>
         <div class="film-details">
-          <h2>{{ selectedFilmTitle }}</h2>
-          <p>{{ selectedFilmDescription }}</p>
+          <h2>{{ selectedFilm.titre }}</h2>
+          <p>{{ selectedFilm.description }}</p>
           <div class="popup-rating">
-            <span v-for="n in 5" :key="n" class="star">{{ n <= selectedFilmRating ? '★' : '☆' }}</span>
+            <span v-for="n in 5" :key="n" class="star">{{ n <= selectedFilm.note_moyenne ? '★' : '☆' }}</span>
           </div>
         </div>
         <div class="showtimes">

@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       films: [],
-      
+      selectedFilm: -1,
     };
   },
 
@@ -23,9 +23,9 @@ export default {
     },
 
     openPopup(index) {
-      this.selectedFilmIndex = index;
+      this.selectedFilm = this.films[index];
       this.$refs.popup.showModal();
-    },
+    },    
 
     closePopup() {
       this.selectedFilmIndex = -1;
