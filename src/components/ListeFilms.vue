@@ -43,22 +43,22 @@
   <div class="film-cards">
     <div v-for="(film, index) in films" :key="index" class="custom-card" @click="openPopup(index)">
       <div class="image-container">
-        <div class="min-age">-{{ minAge }}</div>
-        <img src="@/assets/accueil1.jpg" alt='film' />
-        <div v-if="isFavorite" class="heart-icon">
+        <div class="min-age">-{{ film.age_minimum }}</div>
+        <img :src="film.image" alt="film" />
+        <div v-if="film.coup_de_coeur" class="heart-icon">
           <i class="fas fa-heart"></i>
         </div>
       </div>
       <div class="content">
         <div class="line">
-          <div class="title">{{ film.title }}</div>
+          <div class="title">{{ film.titre }}</div>
         </div>
         <div class="line">
-          <div class="description">{{ descriptions[index] }}</div>
+          <div class="description">{{ formatDescription(film.description) }}</div>
         </div>
         <div class="line">
           <div class="rating">
-            <span v-for="n in 5" :key="n" class="star">{{ n <= ratings[index] ? '★' : '☆' }}</span>
+            <span v-for="n in 5" :key="n" class="star">{{ n <= film.note_moyenne ? '★' : '☆' }}</span>
           </div>
         </div>
       </div>
