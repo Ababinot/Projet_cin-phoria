@@ -5,11 +5,7 @@ export default {
   data() {
     return {
       films: [],
-      cinema: '',
-      genre: '',
-      jour: '',
-      minAge: 12,
-      selectedFilmIndex: -1,
+      
     };
   },
 
@@ -20,8 +16,8 @@ export default {
     },
 
     formatDescription(description) {
-      if (description.length > 130) {
-        return description.substring(0, 130) + '...';
+      if (description.length > 100) {
+        return description.substring(0, 100) + '...';
       }
       return description;
     },
@@ -40,7 +36,12 @@ export default {
       try {
         const response = await fetch('http://localhost:3001/api/films');
         const data = await response.json();
-        console.log('Films data:', data);  // Ajoutez cette ligne pour voir les données récupérées
+
+        console.log('Films data:', data);  // Debug
+        data.forEach(film => {
+          console.log('Image du film:', film.image);
+        });
+
         this.films = data;
       } catch (error) {
         console.error('Erreur lors de la récupération des films :', error);
