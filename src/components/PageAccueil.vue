@@ -13,34 +13,32 @@
     </div>
 
     <!-- Deuxième bloc -->
-      <div class="second-block">
-        <div class="left">
-          <h5>Films</h5>
-          <h1>Nos derniers films</h1>
-          <p>Retrouvez tout nos derniers films depuis mercredi dernier</p>
-        </div>
-        <div class="right">
-          <button @click="voirTousLesFilms">Voir tous les films</button>
-        </div>
+    <div class="second-block">
+      <div class="left">
+        <h5>Films</h5>
+        <h1>Nos derniers films</h1>
+        <p>Retrouvez tout nos derniers films depuis mercredi dernier</p>
       </div>
+      <div class="right">
+        <button @click="voirTousLesFilms">Voir tous les films</button>
+      </div>
+    </div>
 
-      <!-- Troisième bloc (carrousel d'images) -->
+    <!-- Troisième bloc (carrousel d'images) -->
+    <div>
       <div class="carousel">
         <div class="slide-container" ref="slideContainer">
-          <!-- Dupliquer les éléments de films pour un carrousel infini -->
-          <div v-for="(film, index) in duplicatedFilms" :key="index" class="slide">
-            <img :src="film.image" :alt="'Description de l\'image ' + (index + 1)" class="carousel-img" />
-            <h3>{{ film.name }}</h3>
-            <p>{{ film.description }}</p>
+          <div v-for="(film, index) in visibleFilms" :key="index" class="slide">
+            <img :src="film.image" :alt="film.description" class="carousel-img" />
           </div>
         </div>
-        <!-- Pagination avec des petits points -->
         <div class="pagination">
           <span v-for="(film, index) in films" :key="index" :class="{ active: index === currentPage }"
             @click="goToPage(index)"></span>
         </div>
       </div>
-      
+    </div>
+
     <!-- Quatrième bloc -->
     <div class="contentA fourth-block">
       <div class="left-4">
