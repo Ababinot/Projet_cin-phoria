@@ -3,5 +3,5 @@ const router = express.Router();
 const connection = require('../config/db');
 const reservationController = require('../controllers/reservationController');
 
-router.get('/reservations', reservationController.getReservations);
+router.get('/reservation', reservationController.getVue_reservation);
 module.exports = router;
