@@ -4,10 +4,11 @@ export default {
       films: [],
       currentPage: 0,
       intervalId: null,
-      itemsPerPage: 8,
+      itemsPerPage: 9,
       currentFilmIndex: 0
     };
   },
+
   computed: {
     visibleFilms() {
       const start = this.currentFilmIndex;
@@ -18,6 +19,8 @@ export default {
       return this.films.concat(this.films);
     }
   },
+
+
   methods: {
     autoScroll() {
       this.intervalId = setInterval(() => {
@@ -40,6 +43,14 @@ export default {
       } catch (error) {
         console.error('Erreur lors de la récupération des films :', error);
       }
+    },
+
+    reserver() {
+      this.$router.push('/reserver');
+    },
+
+    film(){
+      this.$router.push('/films');
     }
   },
   mounted() {
