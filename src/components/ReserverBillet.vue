@@ -7,10 +7,8 @@
       <!-- Choix du cinéma -->
       <div class="input-group">
         <label for="cinema">Cinéma</label>
-        <select id="cinema" v-model="cinema">
-          <option value="cinema1">Cinema 1</option>
-          <option value="cinema2">Cinema 2</option>
-          <!-- Ajoutez d'autres options si nécessaire -->
+        <select id="cinema" v-model="selectedCinema">
+          <option v-for="cinema in cinemas" :key="cinema" :value="cinema">{{ cinema }}</option>
         </select>
       </div>
 
@@ -19,44 +17,45 @@
       <!-- Choix du film -->
       <div class="input-group">
         <label for="film">Film</label>
-        <select id="film" v-model="film">
-          <option value="film1">Film 1</option>
-          <option value="film2">Film 2</option>
-          <!-- Ajoutez d'autres options si nécessaire -->
+        <select id="film" v-model="selectedFilm">
+          <option v-for="film in films" :key="film" :value="film">{{ film }}</option>
         </select>
       </div>
     </div>
 
-
     <button class="buttonRecherche" @click="recherche">Rechercher</button>
 
     <div class="spacer1"></div>
-    <p>Film 1</p>
 
     <div class="input-group">
-      <select id="horraire" v-model="horraire">
-        <optgroup label="Horaire"></optgroup>
-        <option value="horraire1">00h00 - 00h00</option>
-        <option value="horraire2">00h00 - 00h00</option>
-        <!-- Ajoutez d'autres options si nécessaire -->
+      <select id="film" v-model="filteredFilm">
+        <optgroup label="Film">
+          <option v-for="film in filteredFilms" :key="film" :value="film">{{ film }}</option>
+        </optgroup>
       </select>
     </div>
 
     <div class="input-group">
-      <select id="qualite" v-model="qualite">
-        <optgroup label="Qualité"></optgroup>
-        <option value="qualite1">2D</option>
-        <option value="qualite2">3D</option>
-        <!-- Ajoutez d'autres options si nécessaire -->
+      <select id="horraire" v-model="filteredHorraire">
+        <optgroup label="Horaire">
+          <option v-for="horraire in filteredHoraires" :key="horraire" :value="horraire">{{ horraire }}</option>
+        </optgroup>
       </select>
     </div>
 
     <div class="input-group">
-      <select id="nbPlace" v-model="nbPlace">
-        <optgroup label="Nombre de places"></optgroup>
-        <option value="nbPlace1">1</option>
-        <option value="nbPlace2">2</option>
-        <!-- Ajoutez d'autres options si nécessaire -->
+      <select id="qualite" v-model="filteredQualite">
+        <optgroup label="Qualité">
+          <option v-for="qualite in filteredQualites" :key="qualite" :value="qualite">{{ qualite }}</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <select id="nbPlace" v-model="filteredNbPlace">
+        <optgroup label="Nombre de places">
+          <option v-for="place in filteredNbPlaces" :key="place" :value="place">{{ place }}</option>
+        </optgroup>
       </select>
     </div>
 
@@ -76,6 +75,9 @@ export default {
     return ReserverBilletData.data(); // Utilisation des données exportées
   },
   methods: ReserverBilletData.methods, // Utilisation des méthodes exportées
+  mounted() {
+    this.fetch_vue_reservation(); // Appel de la méthode pour récupérer les cinémas lors du montage du composant
+  },
 };
 </script>
 
