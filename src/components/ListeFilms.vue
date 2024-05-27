@@ -88,7 +88,7 @@
             <div>{{ seance.type_projection }}</div>
             <button>Réserver</button>
             <div>{{ seance.heure_debut }} - {{ seance.heure_fin }}</div>
-            <div>{{ formatDate(seance.date_seance) }}</div>
+            <div>{{ formatDate(seance.date) }}</div>
             
           </div>
         </div>

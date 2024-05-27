@@ -29,7 +29,7 @@ export default {
         return (
           (this.selectedCinema === '' || seance.nom_cinema === this.selectedCinema) &&
           (this.selectedGenre === '' || seance.genre === this.selectedGenre) &&
-          (this.selectedDate === '' || moment(seance.date_seance).format('YYYY-MM-DD') === this.selectedDate)
+          (this.selectedDate === '' || moment(seance.date).format('YYYY-MM-DD') === this.selectedDate)
         );
       });
 
@@ -118,6 +118,7 @@ export default {
         // Extraire les options uniques pour les cinémas et genres
         this.cinemas = [...new Set(seancesData.map(seance => seance.nom_cinema))];
         this.genres = [...new Set(seancesData.map(seance => seance.genre))];
+        this.dates = [...new Set(seancesData.map(seance => moment(seance.date).format('YYYY-MM-DD')))];
       } catch (error) {
         console.error('Erreur lors de la récupération des séances :', error);
       }
@@ -128,14 +129,7 @@ export default {
       return moment(dateString).format('LL');
     },
 
-    formatTime(dateString) {
-      moment.locale('fr');
-      return moment(dateString).format('HH:mm');
-    },
-
-   
     
-
     async fetchSeancesByFilmName(filmName) {
       try {
         const response = await fetch(`http://localhost:3001/api/seances?nom_film=${encodeURIComponent(filmName)}`);
