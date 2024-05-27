@@ -8,19 +8,54 @@ export default {
     return {
       seances: [],
       films: [],
-      salles: [],
       selectedFilm: -1,
       selectedSeance: -1,
       selectedSalle: -1,
       filteredSeances: [],
+      filteredFilms: [],
+      cinemas: [],
+      genres: [],
+      dates: [],
+      selectedCinema: '',
+      selectedGenre: '',
+      selectedDate: ''
     };
   },
 
   methods: {
     filtre() {
-      console.log('cinema', this.cinema);
-      console.log('genre', this.genre);
+      // Filtrer les séances en fonction des critères sélectionnés
+      this.filteredSeances = this.seances.filter(seance => {
+        return (
+          (this.selectedCinema === '' || seance.nom_cinema === this.selectedCinema) &&
+          (this.selectedGenre === '' || seance.genre === this.selectedGenre) &&
+          (this.selectedDate === '' || moment(seance.date).format('YYYY-MM-DD') === this.selectedDate)
+        );
+      });
+
+      
+    
+      // Si aucun critère de filtrage n'est sélectionné, afficher tous les films
+      if (this.selectedCinema === '' && this.selectedGenre === '' && this.selectedDate === '') {
+        this.filteredFilms = [...this.films]; // Afficher tous les films
+        return; // Sortir de la méthode
+      }
+    
+      // Filtrer les films en fonction des critères sélectionnés
+      this.filteredFilms = this.films.filter(film => {
+        // Vérifier si le film a au moins une séance correspondant aux critères sélectionnés
+        return this.filteredSeances.some(seance => seance.nom_film === film.titre);
+      });
+    
+      // Vérifier s'il y a des films filtrés
+      if (this.filteredFilms.length === 0) {
+        // Aucun film ne correspond aux critères, réinitialiser filteredFilms
+        this.filteredFilms = [];
+      }
     },
+    
+
+    
 
     formatDescription(description) {
       if (description.length > 100) {
@@ -40,7 +75,6 @@ export default {
 
       this.$refs.popup.showModal();
     },
-
 
     closePopup() {
       this.selectedFilm = -1;
@@ -62,9 +96,29 @@ export default {
       try {
         const responseSeances = await fetch('http://localhost:3001/api/seances');
 
-        // Récupérer les données des salles et des séances
+        // Récupérer les données des séances
         const seancesData = await responseSeances.json();
         this.seances = seancesData;
+
+        // Extraire les options uniques pour les dates
+        this.dates = [...new Set(seancesData.map(seance => moment(seance.date).format('YYYY-MM-DD')))];
+      } catch (error) {
+        console.error('Erreur lors de la récupération des séances :', error);
+      }
+    },
+
+    async fetchSeances_cinema_film_filtre() {
+      try {
+        const responseSeances = await fetch('http://localhost:3001/api/seances/filtre');
+
+        // Récupérer les données des séances filtrées par cinéma et genre
+        const seancesData = await responseSeances.json();
+        this.seances = seancesData;
+
+        // Extraire les options uniques pour les cinémas et genres
+        this.cinemas = [...new Set(seancesData.map(seance => seance.nom_cinema))];
+        this.genres = [...new Set(seancesData.map(seance => seance.genre))];
+        this.dates = [...new Set(seancesData.map(seance => moment(seance.date).format('YYYY-MM-DD')))];
       } catch (error) {
         console.error('Erreur lors de la récupération des séances :', error);
       }
@@ -75,6 +129,7 @@ export default {
       return moment(dateString).format('LL');
     },
 
+    
     async fetchSeancesByFilmName(filmName) {
       try {
         const response = await fetch(`http://localhost:3001/api/seances?nom_film=${encodeURIComponent(filmName)}`);
@@ -88,7 +143,10 @@ export default {
   },
 
   mounted() {
-    this.fetchFilms();
-    this.fetchSeances();
+    this.fetchFilms(); // Récupérer les films lors du montage du composant
+    this.fetchSeances(); // Récupérer les séances lors du montage du composant
+    this.fetchSeances_cinema_film_filtre(); // Récupérer les séances filtrées lors du montage du composant
   },
+  
+  
 };
