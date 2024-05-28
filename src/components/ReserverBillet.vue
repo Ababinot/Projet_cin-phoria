@@ -53,14 +53,14 @@
 
     <div class="input-group">
       <select id="nbPlace" v-model="filteredNbPlace">
-        <optgroup label="Nombre de places">
-          <option v-for="place in filteredNbPlaces" :key="place" :value="place">{{ place }}</option>
+        <optgroup label="Nombre de personnes">
+          <option v-for="place in filteredNbPlacesOptions" :key="place" :value="place">{{ place }}</option>
         </optgroup>
       </select>
     </div>
 
-    <p>Numéro salle: 01</p>
-    <p>Prix: 10€</p>
+    <p>Numéro de la salle: {{ filteredNumeroSalle }}</p>
+    <p>Prix: {{ prix }}€</p>
 
     <!-- Bouton de réservation -->
     <button class="buttonReserver" @click="reserver">Réserver</button>
@@ -78,6 +78,7 @@ export default {
   mounted() {
     this.fetch_vue_reservation(); // Appel de la méthode pour récupérer les cinémas lors du montage du composant
   },
+  computed: ReserverBilletData.computed // Utilisation des propriétés calculées exportées
 };
 </script>
 
