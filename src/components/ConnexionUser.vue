@@ -1,5 +1,5 @@
 <template>
-  <div class="connexion">
+   <div class="connexion">
     <div class="icon">
       <!-- Utilisation d'un icône Font Awesome -->
       <i class="fas fa-user"></i>
