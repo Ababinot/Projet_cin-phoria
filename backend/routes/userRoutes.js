@@ -3,7 +3,7 @@ const router = express.Router();
 const connection = require('../config/db');
 const userController = require('../controllers/userController');
 
-router.get('/users', userController.getUsers);
+router.post('/users', userController.postUsers);
 
 
 module.exports = router;
