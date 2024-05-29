@@ -18,10 +18,7 @@ app.use('/api', seanceRoutes);
 app.use('/api', salleRoutes);
 app.use('/api', userRoutes);
 
-
-
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Le Serve vas sur le port ${PORT}`);
+  console.log(`Le serveur fonctionne sur le port ${PORT}`);
 });
