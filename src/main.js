@@ -14,13 +14,13 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 
 const routes = [
-  { path: '/', component: PageAccueil },
+  { path: '/', component: PageAccueil, },
   { path: '/films', component: ListeFilms },
   { path: '/contact', component: ContactInfo },
   { path: '/reserver', component: ReserverBillet },
   { path: '/connexion', component: ConnexionUser },
   { path: '/inscription', component: InscriptionUser },
- 
+
 ];
 
 const router = createRouter({

@@ -8,12 +8,22 @@
       <router-link class="link" to="/contact">Contact</router-link>
     </div>
     <div class="buttons">
-      <button class="button-empty" @click="handleClick">
-        Se connecter <i class="fa fa-user" aria-hidden="true"></i>
-      </button>
-      <button class="button-solid" @click="reserver">
-        Réserver
-      </button>
+      <template v-if="isLoggedIn">
+        <button class="button-empty" @click="goToAccount">
+          Mon compte <i class="fa fa-user" aria-hidden="true"></i>
+        </button>
+        <button class="button-empty" @click="logout">
+          Déconnexion
+        </button>
+      </template>
+      <template v-else>
+        <button class="button-empty" @click="handleClick">
+          Se connecter <i class="fa fa-user" aria-hidden="true"></i>
+        </button>
+        <button class="button-solid" @click="reserver">
+          Réserver
+        </button>
+      </template>
     </div>
   </nav>
 </template>
@@ -23,6 +33,7 @@ import NavBarMenuData from '@/assets/js/NavBarMenu.js'; // Importation des donn�
 export default {
   name: 'NavBarMenu',
   methods: NavBarMenuData.methods, // Utilisation des méthodes exportées
+  computed: NavBarMenuData.computed, // Utilisation des computed exportées
 };
 </script>
 
