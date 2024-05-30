@@ -1,0 +1,61 @@
+.espace-utilisateur {
+    padding: 20px;
+  }
+  
+  .h1 {
+    margin-bottom: 10px;
+  }
+  
+  .p {
+    margin-bottom: 20px;
+  }
+  
+  .reservations {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .reservation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .reservation-details {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .reservation-date {
+    font-weight: bold;
+  }
+  
+  .button {
+    padding: 5px 10px;
+    background-color: var(--couleur-principale);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color:var(--couleur-tertiaire);
+    color: white;
+  }
+  
+  .confirmed {
+    color: green;
+  }
+  
+  .pending {
+    color: orange;
+  }
+  
+  .cancelled {
+    color: red;
+  }

@@ -6,6 +6,7 @@ import ContactInfo from './components/ContactInfo.vue';
 import ReserverBillet from './components/ReserverBillet.vue';
 import ConnexionUser from './components/ConnexionUser.vue';
 import InscriptionUser from './components/InscriptionUser.vue';
+import EspaceUtilisateur from './components/EspaceUtilisateur.vue';
 
 import App from './App.vue'; // Importez le composant racine de votre application (App.vue)
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -18,9 +19,17 @@ const routes = [
   { path: '/films', component: ListeFilms },
   { path: '/contact', component: ContactInfo },
   { path: '/reserver', component: ReserverBillet },
-  { path: '/connexion', component: ConnexionUser },
+  {
+    path: '/connexion',
+    component: ConnexionUser,
+    meta: { requiresAuth: false, requiresUnauth: true }
+  },
   { path: '/inscription', component: InscriptionUser },
-
+  {
+    path: '/utilisateur',
+    component: EspaceUtilisateur,
+    meta: { requiresAuth: true } // Ajoutez cette méta-information pour indiquer que cette route nécessite une authentification
+  },
 ];
 
 const router = createRouter({
@@ -28,6 +37,18 @@ const router = createRouter({
   routes
 });
 
-const app = createApp(App); // Créez votre application Vue en utilisant le composant racine (App.vue)
-app.use(router); // Utilisez le router dans votre application Vue
-app.mount('#app'); // Montez votre application Vue sur l'élément avec l'ID 'app'
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('token');
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/connexion');
+  } else if (to.meta.requiresUnauth && isAuthenticated) {
+    next('/');
+  } else {
+    next();
+  }
+});
+
+const app = createApp(App);
+app.use(router);
+app.mount('#app');

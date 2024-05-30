@@ -27,7 +27,7 @@ export default {
     },
     reloadAndRedirectToAccueil() {
       window.location.reload();
-      this.$router.replace('/');
+      
     }
     
   }

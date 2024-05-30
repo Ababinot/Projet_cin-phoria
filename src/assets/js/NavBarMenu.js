@@ -14,13 +14,13 @@ export default {
       
     },
     goToAccount() {
-      this.$router.push('/account');
-      window.location.reload();
+      this.$router.push('/utilisateur');
+      
     },
     logout() {
       localStorage.removeItem('token');
       window.location.reload();
-      this.$router.push('/');
+     
       
     }
   }
