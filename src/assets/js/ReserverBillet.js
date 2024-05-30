@@ -58,15 +58,44 @@ export default {
 
   methods: {
     reserver() {
-      // Votre logique de réservation
+      // Vérifie si tous les champs sont remplis
+      if (
+        !this.selectedCinema ||
+        !this.selectedFilm ||
+        !this.filteredFilm ||
+        !this.filteredHorraire ||
+        !this.filteredQualite ||
+        !this.filteredNbPlace ||
+        !this.filteredNumeroSalle ||
+        !this.filteredNbPlace
+      ) {
+        alert('Veuillez remplir tous les champs avant de réserver.');
+        return; 
+      }
+      if (localStorage.getItem('token')) {
+       
+        if (confirm('Confirmez-vous la réservation ?')) {
+          alert('commande effectuée avec succès');
+          console.log('Réservation confirmée');
+          window.location.reload();
+        } else {
+          
+          console.log('Réservation annulée');
+          window.location.reload();
+        }
+      } else {
+       
+        this.$router.push('/connexion');
+      }
     },
+    
     async fetch_vue_reservation() {
       try {
         const responseReservation = await fetch('http://localhost:3001/api/reservation');
         const reservationData = await responseReservation.json();
         this.reservation = reservationData;
 
-        // Extraire les options uniques pour les cinémas et les films
+        
         this.cinemas = [...new Set(reservationData.map(reservation => reservation.nom_cinema))];
         this.films = [...new Set(reservationData.map(reservation => reservation.nom_film))];
       } catch (error) {

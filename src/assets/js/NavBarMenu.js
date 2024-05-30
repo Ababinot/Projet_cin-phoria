@@ -19,8 +19,9 @@ export default {
     },
     logout() {
       localStorage.removeItem('token');
-      this.$router.push('/');
       window.location.reload();
+      this.$router.push('/');
+      
     }
   }
 }
