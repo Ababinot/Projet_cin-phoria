@@ -23,6 +23,10 @@ export default {
   },
 
   methods: {
+    reserver() {
+      // Redirige vers la page de réservation
+      this.$router.push('/reserver');
+    },
     filtre() {
       // Filtrer les séances en fonction des critères sélectionnés
       this.filteredSeances = this.seances.filter(seance => {
@@ -65,22 +69,22 @@ export default {
     },
 
     async openPopup(filmIndex) {
-      const selectedFilm = this.films[filmIndex];
-      const filmName = selectedFilm.titre;
-
-      this.selectedFilm = selectedFilm;
-
+      this.selectedFilm = this.filteredFilms[filmIndex];
+      const filmName = this.selectedFilm.titre;
+    
       // Filtrer les séances en fonction du nom du film sélectionné
       this.filteredSeances = this.seances.filter(seance => seance.nom_film === filmName);
-
+    
       this.$refs.popup.showModal();
     },
+    
 
     closePopup() {
-      this.selectedFilm = -1;
+      this.selectedFilm = null;
       this.filteredSeances = [];
       this.$refs.popup.close();
     },
+    
 
     async fetchFilms() {
       try {

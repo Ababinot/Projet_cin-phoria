@@ -64,7 +64,7 @@
 
 
 
-  <dialog ref="popup" class="film-popup">
+<dialog ref="popup" class="film-popup">
     <div class="popup-content">
       <div class="popup-left">
         <div v-if="selectedFilm && selectedFilm.age_minimum" class="min-age">-{{ selectedFilm.age_minimum }}</div>
@@ -86,10 +86,9 @@
         <div class="showtimes" v-if="filteredSeances.length > 0">
           <div class="showtime" v-for="(seance, index) in filteredSeances" :key="index">
             <div>{{ seance.type_projection }}</div>
-            <button>Réserver</button>
+            <button @click="reserver">Réserver</button>
             <div>{{ seance.heure_debut }} - {{ seance.heure_fin }}</div>
             <div>{{ formatDate(seance.date) }}</div>
-            
           </div>
         </div>
         <div v-else>

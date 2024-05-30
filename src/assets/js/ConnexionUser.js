@@ -17,7 +17,7 @@ export default {
         const token = response.data.token;
         localStorage.setItem('token', token);
         
-        // Recharge la page et redirige vers la page d'accueil après rechargement
+        // Redirige vers la page d'accueil après rechargement
         this.reloadAndRedirectToAccueil();
         
       } catch (error) {
@@ -27,7 +27,7 @@ export default {
     },
     reloadAndRedirectToAccueil() {
       window.location.reload();
-      this.$router.push('/');
+      
     }
     
   }

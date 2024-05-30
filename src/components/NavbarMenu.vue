@@ -12,7 +12,7 @@
         <button class="button-empty" @click="goToAccount">
           Mon compte <i class="fa fa-user" aria-hidden="true"></i>
         </button>
-        <button class="button-empty" @click="logout">
+        <button class="button-solid" @click="logout">
           Déconnexion
         </button>
       </template>
