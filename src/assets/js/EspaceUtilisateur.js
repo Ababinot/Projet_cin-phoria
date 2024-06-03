@@ -1,42 +1,46 @@
-
 import moment from 'moment';
 
 export default {
   data() {
     return {
-      reservations: []
+      espace_utilisateur: [],
+      utilisateurConnecteEmail: null // Ajout de la variable pour stocker l'adresse e-mail de l'utilisateur connecté
     };
   },
-  computed: {
-    // Vous pouvez ajouter des computed properties si nécessaire
-  },
   methods: {
-    fetchReservations() {
-      // Remplacez ceci par votre logique pour récupérer les réservations de l'utilisateur
-      this.reservations = [
-        {
-          id: 1,
-          date: '2024-05-20',
-          personnes: 2,
-          prix_total: 30,
-          etat: 'confirmé'
-        },
-        {
-          id: 2,
-          date: '2024-06-10',
-          personnes: 4,
-          prix_total: 60,
-          etat: 'en attente'
-        },
-        {
-          id: 3,
-          date: '2024-04-15',
-          personnes: 3,
-          prix_total: 45,
-          etat: 'annulé'
+    async fetchReservations() {
+      try {
+        // Récupérer le token JWT depuis localStorage
+        const jwtToken = localStorage.getItem('token');
+    
+        if (!jwtToken) {
+          console.error('Token JWT introuvable dans localStorage');
+          return; // Arrêter l'exécution si le token JWT est introuvable
         }
-      ];
+    
+        // Décoder le token pour obtenir l'adresse e-mail de l'utilisateur connecté
+        const decodedToken = this.decodeJwt(jwtToken);
+    
+        if (!decodedToken || !decodedToken.email) {
+          console.error('Impossible de décoder le token JWT ou l\'adresse e-mail est introuvable');
+          return; // Arrêter l'exécution si le token JWT ne peut pas être décodé ou l'adresse e-mail est introuvable
+        }
+    
+        // Récupérer l'adresse e-mail de l'utilisateur connecté
+        this.utilisateurConnecteEmail = decodedToken.email;
+    
+        // Récupérer les réservations de l'utilisateur connecté en utilisant son adresse e-mail
+        const response = await fetch(`http://localhost:3001/api/espace-utilisateur?email_utilisateur=${encodeURIComponent(this.utilisateurConnecteEmail)}`);
+        const data = await response.json();
+    
+        // Filtrer les réservations pour inclure uniquement celles de l'utilisateur connecté
+        this.espace_utilisateur = data.filter(reservation => reservation.email_utilisateur === this.utilisateurConnecteEmail);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des réservations :', error);
+      }
     },
+    
+
     formatDate(dateString) {
       moment.locale('fr');
       return moment(dateString).format('LL');
@@ -46,11 +50,29 @@ export default {
     },
     noterReservation(reservation) {
       // Logique pour noter la réservation
-      alert(`Noter la réservation pour le ${this.formatDate(reservation.date)}`);
+      alert(`Noter la réservation pour le ${this.formatDate(reservation.date_reservation)}`);
+    },
+    decodeJwt(token) {
+      // Fonction pour décoder le token JWT
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        const decodedToken = JSON.parse(jsonPayload);
+
+        console.log('Token JWT décodé :', decodedToken);
+
+        return decodedToken;
+      } catch (error) {
+        console.error('Erreur lors du décodage du token JWT :', error);
+        return null;
+      }
     }
+
   },
   mounted() {
     this.fetchReservations();
   }
 };
-
