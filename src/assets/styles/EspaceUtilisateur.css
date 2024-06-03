@@ -13,22 +13,33 @@
   .reservations {
     display: flex;
     flex-direction: column;
+    width: 50%;
   }
+  
   
   .reservation {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: line;
     padding: 10px;
     border: 1px solid #ccc;
-    margin-bottom: 10px;
     border-radius: 5px;
   }
   
+  
   .reservation-details {
     display: flex;
-    gap: 10px;
+    justify-content: space-between; /* Alignement des éléments sur la largeur */
   }
+  
+  .reservation-details span {
+    margin-left: 100px; /* Espacement entre chaque élément */
+  }
+  
+  /* Ajoutez un espacement à droite pour le dernier élément afin d'éviter un débordement */
+  .reservation-details span:last-child {
+    margin-right: 80px;
+  }
+  
   
   .reservation-date {
     font-weight: bold;
@@ -41,6 +52,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 10px;
   }
   
   .button:hover {
@@ -59,3 +71,8 @@
   .cancelled {
     color: red;
   }
+
+.dialog{
+    border: 0;
+    border-radius: 5px;
+}

@@ -69,7 +69,16 @@ export default {
         console.error('Erreur lors du décodage du token JWT :', error);
         return null;
       }
-    }
+    },
+
+    afficherDialog() {
+      // Ouvrir la boîte de dialogue
+      this.$refs.dialog.showModal();
+    },
+    fermerDialog() {
+      // Fermer la boîte de dialogue
+      this.$refs.dialog.close();
+    },
 
   },
   mounted() {
