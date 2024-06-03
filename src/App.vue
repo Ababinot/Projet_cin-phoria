@@ -15,6 +15,38 @@ export default {
   components: {
     NavbarMenu,
     FooterBar
+  },
+
+  mounted() {
+    this.startInactivityTimer();
+    window.addEventListener('mousemove', this.resetInactivityTimer);
+    window.addEventListener('keypress', this.resetInactivityTimer);
+    window.addEventListener('click', this.resetInactivityTimer);
+    window.addEventListener('scroll', this.resetInactivityTimer);
+  },
+  beforeUnmount() {
+    this.clearInactivityTimer();
+    window.removeEventListener('mousemove', this.resetInactivityTimer);
+    window.removeEventListener('keypress', this.resetInactivityTimer);
+    window.removeEventListener('click', this.resetInactivityTimer);
+    window.removeEventListener('scroll', this.resetInactivityTimer);
+  },
+  methods: {
+    startInactivityTimer() {
+      this.inactivityTimer = setTimeout(this.logout, 300000); // 5 minutes d'inactivité
+    },
+    resetInactivityTimer() {
+      clearTimeout(this.inactivityTimer);
+      this.startInactivityTimer();
+    },
+    clearInactivityTimer() {
+      clearTimeout(this.inactivityTimer);
+    },
+    logout() {
+      localStorage.removeItem('token');
+      this.$router.push('/connexion');
+      window.location.reload();
+    }
   }
 };
 </script>

@@ -1,27 +1,35 @@
 <template>
-    <div class="espace-utilisateur">
-      <h1>Mes réservations</h1>
-      <p>Consulter vos réservations</p>
-      <div class="reservations">
-        <div class="reservation" v-for="reservation in reservations" :key="reservation.id">
-          <div class="reservation-date">{{ formatDate(reservation.date) }}</div>
-          <div class="reservation-details">
-            <span>{{ reservation.personnes }} personnes</span>
-            <span><strong>{{ reservation.prix_total }}€</strong></span>
-            <span :class="{'confirmed': reservation.etat === 'confirmé', 'pending': reservation.etat === 'en attente', 'cancelled': reservation.etat === 'annulé'}">{{ reservation.etat }}</span>
-          </div>
-          <button v-if="isPastDate(reservation.date)" @click="noterReservation(reservation)">Noter</button>
+  <div class="espace-utilisateur">
+    <h1>Mes réservations</h1>
+    <p>Consulter vos réservations</p>
+    <div class="reservations">
+      <div class="reservation" v-for="reservation in espace_utilisateur" :key="reservation.id_reservation">
+        <div class="reservation-date">{{ formatDate(reservation.date_reservation) }}</div>
+        <div class="reservation-details">
+          <span>{{ reservation.nombre_personnes }} personnes</span>
+          <span><strong>{{ reservation.prix_total }}€</strong></span>
+          <span :class="{'confirmed': reservation.statut === 'Confirmée', 'pending': reservation.statut === 'En attente', 'cancelled': reservation.statut === 'Annulée'}">{{ reservation.statut }}</span>
         </div>
+        <button v-if="isPastDate(reservation.date_reservation)" @click="noterReservation(reservation)">Noter</button>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   
   <script>
-  //import EspaceUtilisateurData from '@/assets/js/EspaceUtilisateur.js'; 
-  export default {
-    
-  };
+ import EspaceUtilisateurData from '@/assets/js/EspaceUtilisateur.js';
+
+export default {
+  data() {
+    return EspaceUtilisateurData.data(); // Utilisation des données exportées
+  },
+  computed: EspaceUtilisateurData.computed, // Utilisation des calculs exportés
+  methods: EspaceUtilisateurData.methods, // Utilisation des méthodes exportées
+  mounted() {
+    this.fetchReservations(); // Appel de la méthode pour récupérer les réservations lors du montage du composant
+  }
+};
   </script>
   
   <style scoped>
