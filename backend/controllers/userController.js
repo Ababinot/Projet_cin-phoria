@@ -13,11 +13,11 @@ exports.postUsers = (req, res) => {
   });
 };
 
-// Fonction de connexion
+
 exports.login = (req, res) => {
   const { email, password } = req.body;
 
-  connection.query('SELECT * FROM vue_utilisateurs_employes WHERE email = ?', [email], async (error, results) => {
+  connection.query('SELECT id, email, role, mot_de_passe FROM vue_utilisateurs_employes WHERE email = ?', [email], async (error, results) => {
     if (error) {
       return res.status(500).send('Erreur lors de la connexion');
     }
@@ -32,7 +32,7 @@ exports.login = (req, res) => {
       return res.status(401).json({ message: 'Mot de passe incorrect' });
     }
 
-    const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
     res.json({ token });
   });
 };

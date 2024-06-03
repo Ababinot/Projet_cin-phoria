@@ -9,12 +9,19 @@
     </div>
     <div class="buttons">
       <template v-if="isLoggedIn">
-        <button class="button-empty" @click="goToAccount">
-          Mon compte <i class="fa fa-user" aria-hidden="true"></i>
-        </button>
+        <template v-if="userRole === 'employe'">
+          <button class="button-empty" @click="goToIntranet">
+            Intranet
+          </button>
+        </template>
+        <template v-else>
+          <button class="button-empty" @click="goToAccount">
+            Mon compte <i class="fa fa-user" aria-hidden="true"></i>
+          </button>
+        </template>
         <button class="button-solid" @click="logout">
           Déconnexion
-        </button>
+        </button> 
       </template>
       <template v-else>
         <button class="button-empty" @click="handleClick">
@@ -34,6 +41,12 @@ export default {
   name: 'NavBarMenu',
   methods: NavBarMenuData.methods, // Utilisation des méthodes exportées
   computed: NavBarMenuData.computed, // Utilisation des computed exportées
+  data() {
+    return NavBarMenuData.data(); // Utilisation des données exportées
+  },
+  mounted() {
+    this.fetchUserRole(); // Appeler la méthode pour récupérer le rôle de l'utilisateur lors du montage du composant
+  }
 };
 </script>
 
