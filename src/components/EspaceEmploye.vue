@@ -1,31 +1,41 @@
 <template>
     <div class="espace-employe">
-      <h1>Intranet Films/séances</h1>
-      <p>Créer/modifier/supprimer les films ainsi que les séances </p>
-      
-  
+        <h1>Intranet Films/séances</h1>
+        <p>Créer/modifier/supprimer les films ainsi que les séances </p>
+        <button class="btn_ajout" @click="ajouterFilm">Ajouter un film</button>
+        <div class="liste-films">
+            <div class="film" v-for="film in espace_employe_film" :key="film.titre">
+                <h2>{{ film.titre }}</h2>
+                <button class="btn_modif" @click="modifierFilm">
+                    Modifier <i class="fa fa-pencil"></i> 
+                </button>
+                <button class="btn_supprimer" @click="modifierFilm">
+                    Supprimer <i class="fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
     </div>
-  </template>
-  
-  
-  
-  
-  
-  <script>
-//   import EspaceUtilisateurData from '@/assets/js/EspaceUtilisateur.js';
-  
-//   export default {
-//     data() {
-//       return EspaceUtilisateurData.data(); // Utilisation des données exportées
-//     },
-//     computed: EspaceUtilisateurData.computed, // Utilisation des calculs exportés
-//     methods: EspaceUtilisateurData.methods, // Utilisation des méthodes exportées
-//     mounted() {
-//       this.fetchReservations(); // Appel de la méthode pour récupérer les réservations lors du montage du composant
-//     }
-//   };
-  </script>
-  
-  <style scoped>
-  @import '@/assets/styles/EspaceEmploye.css';
-  </style>
+</template>
+
+
+
+
+
+<script>
+import EspaceEmployeData from '@/assets/js/EspaceEmploye.js';
+
+export default {
+    data() {
+        return EspaceEmployeData.data();
+    },
+    computed: EspaceEmployeData.computed,
+    methods: EspaceEmployeData.methods,
+    mounted() {
+        this.fetchfilms();
+    }
+};
+</script>
+
+<style scoped>
+@import '@/assets/styles/EspaceEmploye.css';
+</style>

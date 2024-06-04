@@ -1,0 +1,55 @@
+.espace-employe {
+    padding: 20px;
+}
+
+.btn_ajout {
+    float: right;
+    padding: 5px 10px;
+    background-color: var(--couleur-principale);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn_ajout:hover {
+    background-color: var(--couleur-tertiaire);
+    color: white;
+}
+
+.liste-films {
+    margin-top: 5%;
+
+}
+
+.film{
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 10px;
+    border-bottom: 1px solid var(--couleur-secondaire);
+    margin-bottom: 20px;
+}
+
+.film h2{
+    width: 60px;
+}
+
+.btn_supprimer{
+    padding: 10px 15px;
+    background-color:white;
+    color: var(--couleur-principale);
+    border: 1px solid var(--couleur-principale);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn_modif{
+    padding: 10px 15px;
+    background-color: var(--couleur-principale);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+

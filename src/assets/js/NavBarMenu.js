@@ -34,7 +34,7 @@ export default {
         }).join(''));
         const decodedToken = JSON.parse(jsonPayload);
 
-        console.log('Token JWT décodé :', decodedToken);
+       
 
         return decodedToken;
       } catch (error) {
@@ -63,9 +63,9 @@ export default {
         }
     
         // Récupérer le rôle de l'utilisateur connecté
-        const userRole = decodedToken.role;
+       
         this.userRole = decodedToken.role;
-        console.log('Rôle de l\'utilisateur connecté :', userRole);
+       
     
         // Faites ce que vous avez besoin avec le rôle, comme afficher le bon bouton dans l'interface utilisateur, etc.
     

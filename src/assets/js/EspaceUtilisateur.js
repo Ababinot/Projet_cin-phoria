@@ -62,7 +62,7 @@ export default {
         }).join(''));
         const decodedToken = JSON.parse(jsonPayload);
 
-        console.log('Token JWT décodé :', decodedToken);
+        
 
         return decodedToken;
       } catch (error) {
