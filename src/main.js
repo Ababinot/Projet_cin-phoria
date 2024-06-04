@@ -7,6 +7,7 @@ import ReserverBillet from './components/ReserverBillet.vue';
 import ConnexionUser from './components/ConnexionUser.vue';
 import InscriptionUser from './components/InscriptionUser.vue';
 import EspaceUtilisateur from './components/EspaceUtilisateur.vue';
+import EspaceEmploye from './components/EspaceEmploye.vue';
 
 import App from './App.vue'; // Importez le composant racine de votre application (App.vue)
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -28,6 +29,11 @@ const routes = [
   {
     path: '/utilisateur',
     component: EspaceUtilisateur,
+    meta: { requiresAuth: true } // Ajoutez cette méta-information pour indiquer que cette route nécessite une authentification
+  },
+  {
+    path: '/employe',
+    component: EspaceEmploye,
     meta: { requiresAuth: true } // Ajoutez cette méta-information pour indiquer que cette route nécessite une authentification
   },
 ];
