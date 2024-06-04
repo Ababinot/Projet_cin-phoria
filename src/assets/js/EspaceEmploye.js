@@ -4,6 +4,7 @@ export default {
   data() {
     return {
       espace_employe_film: [],
+      espace_employe_salle: [],
     };
   },
   methods: {
@@ -12,6 +13,18 @@ export default {
         const response = await fetch('http://localhost:3001/api/espace-employe-film');
         const data = await response.json();
         this.espace_employe_film = data;
+
+        
+      } catch (error) {
+        console.error('Erreur lors de la récupération des films :', error);
+      }
+    },
+
+    async fetchsalles() {
+      try {
+        const response = await fetch('http://localhost:3001/api/espace-employe-salle');
+        const data = await response.json();
+        this.espace_employe_salle= data;
 
         
       } catch (error) {
@@ -52,5 +65,6 @@ export default {
   },
   mounted() {
     this.fetchfilms();
+    this.fetchsalles();
   }
 };

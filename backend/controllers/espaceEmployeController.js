@@ -8,3 +8,13 @@ exports.getFilmEspaceEmploye= (req, res) => {
     res.json(results);
   });
 };
+
+exports.getSalleEspaceEmploye= (req, res) => {
+  connection.query('SELECT * FROM vue_salles_intranet', (error, results) => {
+    if (error) {
+      return res.status(500).send('erreur de récup films pour espace employe');
+    }
+    res.json(results);
+  });
+};
+
