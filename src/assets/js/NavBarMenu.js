@@ -21,7 +21,7 @@ export default {
       window.location.reload();
     },
     goToIntranet() {
-      // Rediriger vers la page de l'intranet
+      this.$router.push('/employe');
     },
 
     decodeJwt(token) {
