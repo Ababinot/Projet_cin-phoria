@@ -23,6 +23,9 @@ export default {
     goToIntranet() {
       this.$router.push('/employe');
     },
+    goToAdmin() {
+      this.$router.push('/administration');
+    },
 
     decodeJwt(token) {
       // Fonction pour décoder le token JWT
