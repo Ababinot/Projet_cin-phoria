@@ -5,6 +5,7 @@ export default {
     return {
       espace_employe_film: [],
       espace_employe_salle: [],
+      espace_employe_avis: [],
     };
   },
   methods: {
@@ -28,7 +29,19 @@ export default {
 
         
       } catch (error) {
-        console.error('Erreur lors de la récupération des films :', error);
+        console.error('Erreur lors de la récupération des avis :', error);
+      }
+    },
+
+    async fetchavis() {
+      try {
+        const response = await fetch('http://localhost:3001/api/espace-employe-avis');
+        const data = await response.json();
+        this.espace_employe_avis= data;
+
+        
+      } catch (error) {
+        console.error('Erreur lors de la récupération des avis :', error);
       }
     },
     
@@ -66,5 +79,6 @@ export default {
   mounted() {
     this.fetchfilms();
     this.fetchsalles();
+    this.fetchavis();
   }
 };

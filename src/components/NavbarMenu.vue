@@ -14,6 +14,11 @@
             Intranet
           </button>
         </template>
+        <template v-else-if="userRole === 'administrateur'">
+          <button class="button-empty" @click="goToAdmin">
+            Administration
+          </button>
+        </template>
         <template v-else>
           <button class="button-empty" @click="goToAccount">
             Mon compte <i class="fa fa-user" aria-hidden="true"></i>
