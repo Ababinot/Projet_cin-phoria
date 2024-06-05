@@ -5,33 +5,57 @@ export default {
       nom: '',
       prenom: '',
       password: '',
-      confirmPassword: '' // Ajoutez une variable pour la confirmation du mot de passe
+      confirmPassword: ''
     };
   },
   methods: {
+    validatePassword(password) {
+      const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+      return regex.test(password);
+    },
+    validateEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    },
     inscription() {
       console.log('Données d\'inscription envoyées :', {
         email: this.email,
         nom: this.nom,
         prenom: this.prenom,
         password: this.password,
-        // Ajoutez d'autres champs si nécessaire
+        confirmPassword: this.confirmPassword
       });
-      // Vérifiez si les mots de passe correspondent
+
+      if (!this.email || !this.nom || !this.prenom || !this.password || !this.confirmPassword) {
+        alert('Tous les champs doivent être remplis');
+        return;
+      }
+
+      if (!this.validateEmail(this.email)) {
+        alert('Adresse email invalide');
+        return;
+      }
+
       if (this.password !== this.confirmPassword) {
         alert('Les mots de passe ne correspondent pas');
         return;
       }
-      
-      // Créez un objet contenant les données d'inscription
+
+      if (!this.validatePassword(this.password)) {
+        alert('Le mot de passe doit contenir au moins une majuscule, un chiffre, un caractère spécial, et être d\'au moins 6 caractères.');
+        return;
+      }
+
       const userData = {
-        email_utilisateur: this.email,
-        nom_utilisateur: this.nom,
-        prenom_utilisateur: this.prenom,
-        mdp_utilisateur: this.password
+        email: this.email,
+        nom: this.nom,
+        prenom: this.prenom,
+        password: this.password,
+        verif_password: this.confirmPassword
       };
 
-      // Envoyez les données d'inscription au backend via une requête HTTP POST
+      console.log('Données envoyées au serveur :', userData);
+
       fetch('http://localhost:3001/api/inscription', {
         method: 'POST',
         headers: {
@@ -41,18 +65,26 @@ export default {
       })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Erreur lors de l\'inscription');
+          return response.text().then(text => {
+            try {
+              const json = JSON.parse(text);
+              throw new Error(json.error || 'Erreur lors de l\'inscription');
+            } catch {
+              throw new Error(text);
+            }
+          });
         }
         return response.json();
       })
       .then(data => {
-        // Traitez la réponse du serveur si nécessaire
-        console.log(data);
+        console.log('Réponse du serveur:', data);
+        alert('Inscription réussie');
+        // Rafraîchir la page après l'inscription réussie
+        window.location.reload();
       })
       .catch(error => {
-        console.error('Erreur:', error);
-        // Affichez un message d'erreur à l'utilisateur si nécessaire
-        alert('Une erreur est survenue lors de l\'inscription');
+        console.error('Erreur lors de l\'inscription:', error);
+        alert('Une erreur est survenue lors de l\'inscription: ' + error);
       });
     }
   }
