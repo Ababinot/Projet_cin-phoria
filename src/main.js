@@ -30,17 +30,17 @@ const routes = [
   {
     path: '/utilisateur',
     component: EspaceUtilisateur,
-    meta: { requiresAuth: true } // Ajoutez cette méta-information pour indiquer que cette route nécessite une authentification
+    meta: { requiresAuth: true, role: 'Client' } // Utilisateur
   },
   {
     path: '/employe',
     component: EspaceEmploye,
-    meta: { requiresAuth: true } // Ajoutez cette méta-information pour indiquer que cette route nécessite une authentification
+    meta: { requiresAuth: true, role: 'employe' } // Employé
   },
   {
     path: '/administration',
     component: EspaceAdministration,
-    meta: { requiresAuth: true } // Ajoutez cette méta-information pour indiquer que cette route nécessite une authentification
+    meta: { requiresAuth: true, role: 'administrateur' } // Administration
   },
 ];
 
@@ -49,17 +49,45 @@ const router = createRouter({
   routes
 });
 
-
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('token');
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/connexion');
   } else if (to.meta.requiresUnauth && isAuthenticated) {
     next('/');
+  } else if (to.meta.role) {
+    const userRole = getUserRole(); // Fonction pour récupérer le rôle de l'utilisateur depuis le token JWT
+    if (userRole !== to.meta.role) {
+      // Redirigez l'utilisateur vers la page d'accueil ou une autre page s'il n'a pas le bon rôle
+      next("/");
+    } else {
+      next();
+    }
   } else {
     next();
   }
 });
+
+function getUserRole() {
+  const jwtToken = localStorage.getItem('token');
+  if (!jwtToken) {
+    return null;
+  }
+
+  try {
+    const base64Url = jwtToken.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    const decodedToken = JSON.parse(jsonPayload);
+
+    return decodedToken.role;
+  } catch (error) {
+    console.error('Erreur lors du décodage du token JWT :', error);
+    return null;
+  }
+}
 
 const app = createApp(App);
 app.use(router);
