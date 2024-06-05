@@ -74,3 +74,38 @@
     cursor: pointer;
 }
 
+.creation_employe{
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    max-width: 600px;
+}
+
+.buttonCo{
+    padding: 10px 15px;
+    background-color: var(--couleur-principale);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 37px;
+}
+
+.buttonCo:hover{
+    background-color: var(--couleur-tertiaire);
+    color: white;
+}
+
+h3{
+    font-size: 40px;
+}
+
+.nb_reservation_film{
+    margin-top: 8%; /* Ajustez selon vos besoins */
+    text-align: center; /* Centre le contenu horizontalement */
+    width: 60%; /* Ajustez selon vos besoins */
+    margin-left: auto; /* Centrer le conteneur */
+    margin-right: auto; /* Centrer le conteneur */
+}

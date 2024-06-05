@@ -7,7 +7,7 @@
             <div class="film" v-for="film in espace_administration_film" :key="film.titre">
                 <h2>{{ film.titre }}</h2>
                 <button class="btn_modif" @click="modifierFilm">
-                    Modifier <i class="fa fa-pencil"></i> 
+                    Modifier <i class="fa fa-pencil"></i>
                 </button>
                 <button class="btn_supprimer" @click="modifierFilm">
                     Supprimer <i class="fa-regular fa-trash-can"></i>
@@ -21,7 +21,7 @@
             <div class="film" v-for="salle in espace_administration_salle" :key="salle.num_salle">
                 <h2>Salle n°{{ salle.num_salle }}</h2>
                 <button class="btn_modif" @click="modifierSalle">
-                    Modifier <i class="fa fa-pencil"></i> 
+                    Modifier <i class="fa fa-pencil"></i>
                 </button>
                 <button class="btn_supprimer" @click="supprimerSalle">
                     Supprimer <i class="fa-regular fa-trash-can"></i>
@@ -30,17 +30,30 @@
         </div>
         <h1>Administration Employé</h1>
         <p>Concevoir un compte «employé» en fournissant un login et mot de passe </p>
-        <div class="liste-films">
-            <div class="film_avis" v-for="avi in espace_administration_avis" :key="avi.id_avis">
-                <h2>Avis sur ({{ avi.titre }})</h2>
-                <p>{{ avi.commentaire }}</p>
-                <button class="btn_modif" @click="accepterAvis">
-                    Accepter <i class="fa-solid fa-circle-check"></i>
-                </button>
-                <button class="btn_supprimer" @click="supprimerAvis">
-                    Supprimer <i class="fa-regular fa-trash-can"></i>
-                </button>
+        <div class="creation_employe">
+            <div class="icon">
+                <i class="fa-regular fa-user"></i>
             </div>
+            <h3>Compte employé</h3>
+            <div class="input-group">
+                <input type="email" id="email" v-model="email" placeholder="E-mail" required />
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" v-model="password" placeholder="Mot de passe" required />
+            </div>
+            <button class="buttonCo" @click="connexion">Créer</button>
+            <div class="input-group">
+                <input type="email" id="email" v-model="email" placeholder="E-mail" required />
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" v-model="password" placeholder="Nouveau mot de passe" required />
+            </div>
+            <button class="buttonCo" @click="connexion">Modifier</button>
+        </div>
+        <h1>Nombre de réservation par films</h1>
+        <p>Visualiser le nombre de réservations par film sur une période de 7 jours via un Dashboard</p>
+        <div class="nb_reservation_film">
+            <canvas id="reservationChart"></canvas>
         </div>
     </div>
 </template>
@@ -61,6 +74,10 @@ export default {
     mounted() {
         this.fetchfilms();
         this.fetchsalles();
+        this.fetchreservation_film().then(() => {
+            this.createChart();
+        });
+
     }
 };
 </script>
