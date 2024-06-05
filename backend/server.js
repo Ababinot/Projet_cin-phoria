@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const espacesRoutes = require('./routes/espaceUtilisateurRoutes');
 const espaceEmployeRoutes = require('./routes/espaceEmployeRoutes');
 const espaceAdministrationRoutes = require('./routes/espaceAdministrationRoutes');
+const inscriptionRoutes = require('./routes/inscriptionRoutes');
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/api', userRoutes);
 app.use('/api', espacesRoutes);
 app.use('/api', espaceEmployeRoutes);
 app.use('/api', espaceAdministrationRoutes);
+app.use('/api', inscriptionRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
