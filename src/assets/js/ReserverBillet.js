@@ -103,16 +103,23 @@ export default {
         // Supprimer la lettre avant les chiffres dans l'ID utilisateur
         const cleaned_user_id = user_id.replace(/\D/g, '');
     
-        console.log('ID utilisateur:', cleaned_user_id);
-    
         if (!cleaned_user_id) {
           alert('Veuillez vous connecter pour effectuer une réservation');
           this.$router.push('/connexion');
           return;
         }
-        
+    
+        // Recherche de la séance correspondante
+        const seance = this.reservation.find(reservation => reservation.num_salle === this.filteredNumeroSalle);
+        if (!seance) {
+          alert('Séance non trouvée');
+          return;
+        }
+    
+        // Utilisation de la date et de l'heure de début de la séance comme date de réservation
         const reservationData = {
-          date_reservation: new Date().toISOString(),
+          date_reservation: seance.date, // Utilisation de la date de la séance
+          heure_debut: seance.heure_debut, // Utilisation de l'heure de début de la séance
           nombre_personnes: this.filteredNbPlace,
           prix_total: this.prix,
           statut: 'En attente',
@@ -144,6 +151,9 @@ export default {
         alert('Une erreur est survenue lors de l\'ajout de la réservation');
       }
     },
+    
+    
+    
     
     
     decodeJwt(token) {
