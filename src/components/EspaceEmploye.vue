@@ -7,7 +7,7 @@
             <div class="film" v-for="film in espace_employe_film" :key="film.titre">
                 <h2>{{ film.titre }}</h2>
                 <button class="btn_modif" @click="modifierFilm">
-                    Modifier <i class="fa fa-pencil"></i> 
+                    Modifier <i class="fa fa-pencil"></i>
                 </button>
                 <button class="btn_supprimer" @click="modifierFilm">
                     Supprimer <i class="fa-regular fa-trash-can"></i>
@@ -21,7 +21,7 @@
             <div class="film" v-for="salle in espace_employe_salle" :key="salle.num_salle">
                 <h2>Salle n°{{ salle.num_salle }}</h2>
                 <button class="btn_modif" @click="modifierSalle">
-                    Modifier <i class="fa fa-pencil"></i> 
+                    Modifier <i class="fa fa-pencil"></i>
                 </button>
                 <button class="btn_supprimer" @click="supprimerSalle">
                     Supprimer <i class="fa-regular fa-trash-can"></i>
@@ -31,13 +31,13 @@
         <h1>Supprimer/valider les avis sur un film</h1>
         <p>Supprimer/valider les avis sur un film </p>
         <div class="liste-films">
-            <div class="film_avis" v-for="avi in espace_employe_avis" :key="avi.id_avis">
+            <div class="film_avis" v-for="avi in avisNonAcceptes" :key="avi.id_avis">
                 <h2>Avis sur ({{ avi.titre }})</h2>
                 <p>{{ avi.commentaire }}</p>
-                <button class="btn_modif" @click="accepterAvis">
+                <button class="btn_modif" @click="accepterAvis(avi.id_avis)">
                     Accepter <i class="fa-solid fa-circle-check"></i>
                 </button>
-                <button class="btn_supprimer" @click="supprimerAvis">
+                <button class="btn_supprimer" @click="supprimerAvis(avi.id_avis)">
                     Supprimer <i class="fa-regular fa-trash-can"></i>
                 </button>
             </div>
