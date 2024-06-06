@@ -27,3 +27,22 @@ exports.getAvisEspaceEmploye= (req, res) => {
   });
 };
 
+exports.deleteAvis = (req, res) => {
+  const idAvis = req.body.id;
+
+  console.log('ID de l\'avis à supprimer :', idAvis); // Ajout du log pour vérifier l'ID de l'avis à supprimer
+
+  connection.query('DELETE FROM avis WHERE id_avis = ?', [idAvis], (error, results) => {
+    if (error) {
+      console.error('Erreur lors de la suppression de l\'avis :', error);
+      return res.status(500).json({ error: 'La suppression de l\'avis a échoué' });
+    }
+
+    console.log('Résultats de la suppression de l\'avis :', results); // Ajout du log pour vérifier les résultats de la suppression
+
+    return res.status(200).json({ message: 'L\'avis a été supprimé avec succès' });
+  });
+};
+
+
+
