@@ -109,3 +109,24 @@ h3{
     margin-left: auto; /* Centrer le conteneur */
     margin-right: auto; /* Centrer le conteneur */
 }
+
+.update_employe {
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    max-width: 600px;
+  }
+  
+  .update_employe .input-group {
+    margin-top: 3%; /* Ajustez selon vos besoins */
+    text-align: center; /* Centre le contenu horizontalement */
+    width: 60%; /* Ajustez selon vos besoins */
+    margin-left: auto; /* Centrer le conteneur */
+    margin-right: auto; /* Centrer le conteneur */
+  }
+  
+  .update_employe h3 {
+    margin-bottom: 10px;
+  }

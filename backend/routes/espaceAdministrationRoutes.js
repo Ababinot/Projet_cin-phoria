@@ -6,5 +6,7 @@ const espaceAdministrationController = require('../controllers/espaceAdministrat
 router.get('/espace-administration-film', espaceAdministrationController.getFilmEspaceAdministration);
 router.get('/espace-administration-salle', espaceAdministrationController.getSalleEspaceAdministration);
 router.get('/espace-administration-nbreservation', espaceAdministrationController.getNbreservationEspaceAdministration);
+router.post('/inscriptionEmploye', espaceAdministrationController.inscriptionEmploye);
+router.post('/updateEmploye', espaceAdministrationController.updateEmploye);
 
 module.exports = router;
