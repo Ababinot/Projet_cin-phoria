@@ -44,5 +44,24 @@ exports.deleteAvis = (req, res) => {
   });
 };
 
+exports.deleteFilms = (req, res) => {
+  const titre_film = req.body.titre;
+
+  console.log('ID de film à supprimer :', titre_film); // Ajout du log pour vérifier l'ID de l'avis à supprimer
+
+  connection.query('DELETE FROM film WHERE titre = ?', [titre_film], (error, results) => {
+    if (error) {
+      console.error('Erreur lors de la suppression de film :', error);
+      return res.status(500).json({ error: 'La suppression de film a échoué' });
+    }
+
+    console.log('Résultats de la suppression de film :', results); // Ajout du log pour vérifier les résultats de la suppression
+
+    return res.status(200).json({ message: 'Le film a été supprimé avec succès' });
+  });
+};
+
+
+
 
 
