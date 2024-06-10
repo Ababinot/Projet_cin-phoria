@@ -12,26 +12,26 @@
             :class="{ 'confirmed': reservation.statut === 'Confirmée', 'pending': reservation.statut === 'En attente', 'cancelled': reservation.statut === 'Annulée' }">{{
               reservation.statut }}</span>
         </div>
-        <button class="button" v-if="isPastDate(reservation.date_reservation)" @click="afficherDialog(reservation)">Noter</button>
+        <!-- Ajout de la condition pour vérifier si la réservation peut être notée -->
+        <button class="button" v-if="isPastDate(reservation.date_reservation) &&
+          reservation.statut === 'Confirmée' &&
+          !reservation.note &&
+          reservationSelectionnee.id_reservation !== reservation.id_reservation"
+          @click="noterReservation(reservation)">Noter</button>
       </div>
     </div>
     <!-- Dialog box -->
     <dialog ref="dialog" class="dialog">
       <h2>Noter la réservation</h2>
       <label for="note">Note (sur 5)</label>
-      <input type="number" id="note" name="note" min="0" max="5">
+      <input type="number" id="note" name="note" min="0" max="5" v-model="note">
       <label for="description">Description</label>
-      <textarea id="description" name="description" ></textarea>
-      <button @click="fermerDialog" class="button" >Fermer</button>
-      <button class="button" >Comfirmer</button>
+      <textarea id="description" name="description" v-model="description"></textarea>
+      <button @click="fermerDialog" class="button">Fermer</button>
+      <button @click="ajoutAvis" class="button">Confirmer</button>
     </dialog>
-
   </div>
 </template>
-
-
-
-
 
 <script>
 import EspaceUtilisateurData from '@/assets/js/EspaceUtilisateur.js';

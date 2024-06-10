@@ -4,40 +4,105 @@ export default {
   data() {
     return {
       espace_utilisateur: [],
-      utilisateurConnecteEmail: null // Ajout de la variable pour stocker l'adresse e-mail de l'utilisateur connecté
+      utilisateurConnecteEmail: null,
+      reservationSelectionnee: {}, // Initialisé comme un objet vide
+      note: null,
+      description: null
     };
   },
   methods: {
     async fetchReservations() {
       try {
-        // Récupérer le token JWT depuis localStorage
         const jwtToken = localStorage.getItem('token');
-    
+
         if (!jwtToken) {
           console.error('Token JWT introuvable dans localStorage');
-          return; // Arrêter l'exécution si le token JWT est introuvable
+          return;
         }
-    
-        // Décoder le token pour obtenir l'adresse e-mail de l'utilisateur connecté
+
         const decodedToken = this.decodeJwt(jwtToken);
-    
+
         if (!decodedToken || !decodedToken.email) {
           console.error('Impossible de décoder le token JWT ou l\'adresse e-mail est introuvable');
-          return; // Arrêter l'exécution si le token JWT ne peut pas être décodé ou l'adresse e-mail est introuvable
+          return;
         }
-    
-        // Récupérer l'adresse e-mail de l'utilisateur connecté
+
         this.utilisateurConnecteEmail = decodedToken.email;
-    
-        // Récupérer les réservations de l'utilisateur connecté en utilisant son adresse e-mail
+
         const response = await fetch(`http://localhost:3001/api/espace-utilisateur?email_utilisateur=${encodeURIComponent(this.utilisateurConnecteEmail)}`);
         const data = await response.json();
-    
-        // Filtrer les réservations pour inclure uniquement celles de l'utilisateur connecté
+
+        
+
         this.espace_utilisateur = data.filter(reservation => reservation.email_utilisateur === this.utilisateurConnecteEmail);
       } catch (error) {
         console.error('Erreur lors de la récupération des réservations :', error);
       }
+    },
+
+    async ajoutAvis() {
+      try {
+        if (!this.note || !this.description) {
+          alert('Veuillez remplir tous les champs pour ajouter un avis');
+          return;
+        }
+        if (this.note > 5) {
+          alert('La note ne peut pas dépasser 5.');
+          return;
+        }
+    
+        const avisData = {
+          note: this.note,
+          commentaire: this.description,
+          id_film: this.reservationSelectionnee.id_film
+        };
+    
+        const response = await fetch('http://localhost:3001/api/ajouter-avis', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+          },
+          body: JSON.stringify(avisData)
+        });
+    
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Erreur du serveur:', errorText);
+          throw new Error('Erreur lors de l\'ajout de l\'avis');
+        }
+    
+        alert('Avis ajouté avec succès');
+        // Recharger la page après avoir ajouté avec succès l'avis
+       this.fermerDialog();
+      } catch (error) {
+        console.error('Erreur lors de l\'ajout de l\'avis :', error.message);
+        alert('Une erreur est survenue lors de l\'ajout de l\'avis');
+      }
+    },
+    
+    noterReservation(reservation) {
+      // Vérifier si la réservation a déjà une note attribuée
+      if (reservation.note) {
+        alert('Cette réservation a déjà été notée.');
+        return;
+      }
+    
+      // Assigner la réservation sélectionnée explicitement
+      this.reservationSelectionnee = { 
+        id_film: reservation.id_film,
+        id_reservation: reservation.id_reservation,
+        date_reservation: reservation.date_reservation,
+        nombre_personnes: reservation.nombre_personnes,
+        prix_total: reservation.prix_total,
+        statut: reservation.statut,
+        email_utilisateur: reservation.email_utilisateur,
+        nom_utilisateur: reservation.nom_utilisateur,
+        prenom_utilisateur: reservation.prenom_utilisateur,
+        id_utilisateur: reservation.id_utilisateur
+      };
+    
+      this.afficherDialog();
     },
     
 
@@ -48,23 +113,15 @@ export default {
     isPastDate(dateString) {
       return moment(dateString).isBefore(moment());
     },
-    noterReservation(reservation) {
-      // Logique pour noter la réservation
-      alert(`Noter la réservation pour le ${this.formatDate(reservation.date_reservation)}`);
-    },
+
     decodeJwt(token) {
-      // Fonction pour décoder le token JWT
       try {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
-        const decodedToken = JSON.parse(jsonPayload);
-
-        
-
-        return decodedToken;
+        return JSON.parse(jsonPayload);
       } catch (error) {
         console.error('Erreur lors du décodage du token JWT :', error);
         return null;
@@ -72,14 +129,11 @@ export default {
     },
 
     afficherDialog() {
-      // Ouvrir la boîte de dialogue
       this.$refs.dialog.showModal();
     },
     fermerDialog() {
-      // Fermer la boîte de dialogue
       this.$refs.dialog.close();
-    },
-
+    }
   },
   mounted() {
     this.fetchReservations();
