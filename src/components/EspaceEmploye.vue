@@ -9,7 +9,7 @@
                 <button class="btn_modif" @click="modifierFilm">
                     Modifier <i class="fa fa-pencil"></i>
                 </button>
-                <button class="btn_supprimer" @click="modifierFilm">
+                <button class="btn_supprimer" @click="supprimerFilm(film.titre)">
                     Supprimer <i class="fa-regular fa-trash-can"></i>
                 </button>
             </div>
@@ -44,11 +44,6 @@
         </div>
     </div>
 </template>
-
-
-
-
-
 <script>
 import EspaceEmployeData from '@/assets/js/EspaceEmploye.js';
 

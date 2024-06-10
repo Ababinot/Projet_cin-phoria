@@ -96,13 +96,31 @@ export default {
       }
     },
 
+    async supprimerFilm(titre_film) {
+      try {
+        const response = await fetch(`http://localhost:3001/api/supprimer-film`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ titre: titre_film })
+        });
+
+        if (!response.ok) {
+          throw new Error('La suppression de Film a échoué');
+        }
+
+        
+        await this.fetchfilms();
+        alert('Film supprimé avec succès');
+      } catch (error) {
+        console.error('Erreur lors de la suppression de Film :', error);
+        alert('Une erreur est survenue lors de la suppression de Film');
+      }
+    },
+
     async accepterAvis(idAvis) {
       try {
-        // Mettre à jour le statut de l'avis dans la base de données
-        // Assurez-vous que votre API met à jour la propriété 'accepte' dans la base de données
-        // Cette étape doit être effectuée côté serveur
-
-        // Mettre à jour l'interface utilisateur après l'acceptation de l'avis
         const avisIndex = this.espace_employe_avis.findIndex(avi => avi.id_avis === idAvis);
         if (avisIndex !== -1) {
           // Supprimer l'avis de la liste pour ne plus l'afficher
