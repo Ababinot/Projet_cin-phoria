@@ -91,6 +91,7 @@ export default {
         const response = await fetch('http://localhost:3001/api/films');
         const data = await response.json();
         this.films = data;
+        this.genres = [...new Set(data.map(film => film.genre))];
       } catch (error) {
         console.error('Erreur lors de la récupération des films :', error);
       }
@@ -103,8 +104,6 @@ export default {
         // Récupérer les données des séances
         const seancesData = await responseSeances.json();
         this.seances = seancesData;
-
-        // Extraire les options uniques pour les dates
         this.dates = [...new Set(seancesData.map(seance => moment(seance.date).format('YYYY-MM-DD')))];
       } catch (error) {
         console.error('Erreur lors de la récupération des séances :', error);
@@ -121,7 +120,7 @@ export default {
 
         // Extraire les options uniques pour les cinémas et genres
         this.cinemas = [...new Set(seancesData.map(seance => seance.nom_cinema))];
-        this.genres = [...new Set(seancesData.map(seance => seance.genre))];
+        
         this.dates = [...new Set(seancesData.map(seance => moment(seance.date).format('YYYY-MM-DD')))];
       } catch (error) {
         console.error('Erreur lors de la récupération des séances :', error);
