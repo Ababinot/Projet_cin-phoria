@@ -1,6 +1,19 @@
 export default {
   data() {
     return {
+      salleModif: {
+        id_salle: null,
+        num_salle: null,
+        capacite: null,
+        type_projection: '',
+        id_cinema: null,
+      },
+      nouvelleSalle: {
+        num_salle: null,
+        capacite: null,
+        type_projection: '',
+        id_cinema: null
+      },
 
       nouveauFilm: {
         titre: '',
@@ -9,9 +22,11 @@ export default {
         genre: '',
         age_minimum: null,
       },
+      cinemas: [],
       espace_employe_film: [],
       espace_employe_salle: [],
       espace_employe_avis: [],
+      seancesParFilm: {},
 
       nouvelleSeance: {
         date_debut: '',
@@ -32,15 +47,122 @@ export default {
     };
   },
   methods: {
+    async fetchSalleCinema() {
+      try {
+        const response = await fetch('http://localhost:3001/api/espace-employe-salle');
+        const data = await response.json();
+        this.espace_employe_salle = data;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des salles de cinéma :', error);
+      }
+    },
+    fermerDialogModifSalle() {
+      this.$refs.dialogModifSalle.close();
+    },
+    async modifierFilm() {
+      try {
+        const response = await fetch(`http://localhost:3001/api/modifier-film/${this.filmModif.id_film}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+          },
+          body: JSON.stringify(this.filmModif),
+        });
+        if (!response.ok) {
+          throw new Error('La modification du film a échoué');
+        }
+        alert('Film modifié avec succès');
+        this.fermerDialogModificationFilm();
+        this.fetchfilms();
+      } catch (error) {
+        console.error('Erreur lors de la modification du film :', error);
+        alert('Une erreur est survenue lors de la modification du film');
+      }
+    },
+
+    async afficherDialogModifSalle(id_salle) {
+      console.log('Afficher la boîte de dialogue de modification du salle', id_salle);
+      try {
+        if (!id_salle) {
+          throw new Error('Le id du salle est manquant');
+        }
+        const responseSalle = await fetch(`http://localhost:3001/api/espace-employe-salle/${id_salle}`);
+        if (!responseSalle.ok) {
+          throw new Error('La récupération des détails du film pour modification a échoué');
+        }
+        const salle = await responseSalle.json();
+        if (!salle) {
+          throw new Error('Aucun salle trouvé avec ce id');
+        }
+        // Assigner l'ID du film récupéré à filmModif
+        this.salleModif.id_salle = salle.id_salle;
+        // Préremplir les détails du film dans l'objet filmModif
+        this.salleModif.num_salle = salle.num_salle;
+        this.salleModif.capacite = salle.capacite;
+        this.salleModif.type_projection = salle.type_projection;
+        this.salleModif.id_cinema = salle.id_cinema;
+        // Ouvrir la boîte de dialogue de modification de film
+        this.$refs.dialogModifSalle.showModal();
+      } catch (error) {
+        console.error('Erreur lors de la récupération des détails du film pour modification :', error);
+        alert('Une erreur est survenue lors de la récupération des détails du film pour modification');
+      }
+    },
+    
+    async modifierSalle() {
+      try {
+        const response = await fetch(`http://localhost:3001/api/modifier-salle/${this.salleModif.id_salle}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token')
+          },
+          body: JSON.stringify(this.salleModif),
+        });
+        if (!response.ok) {
+          throw new Error('La modification du salle a échoué');
+        }
+        alert('Salle modifié avec succès');
+        this.fermerDialogModifSalle();
+        this.fetchsalles();
+      } catch (error) {
+        console.error('Erreur lors de la modification du salle :', error);
+        alert('Une erreur est survenue lors de la modification du szalle');
+      }
+    },
+    
+
+    async fetchCinemas() {
+      try {
+        const response = await fetch('http://localhost:3001/api/cinema');
+        const data = await response.json();
+        this.cinemas = data;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des cinémas :', error);
+      }
+    },
     async fetchfilms() {
       try {
         const response = await fetch('http://localhost:3001/api/espace-employe-film');
         const data = await response.json();
         this.espace_employe_film = data;
 
-
+        // Appeler une méthode pour récupérer les séances pour chaque film
+        await this.fetchSeancesParFilm();
       } catch (error) {
         console.error('Erreur lors de la récupération des films :', error);
+      }
+    },
+    async fetchSeancesParFilm() {
+      try {
+        for (const film of this.espace_employe_film) {
+          const responseSeances = await fetch(`http://localhost:3001/api/espace-employe-film/${film.id_film}/seances`);
+          const seances = await responseSeances.json();
+          this.$set(this.seancesParFilm, film.id_film, seances);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des séances par film :', error);
       }
     },
 
@@ -143,6 +265,31 @@ export default {
         alert('Une erreur est survenue lors de la suppression de Film');
       }
     },
+    async supprimerSalle(idSalle) {
+      try {
+        console.log("ID de salle à supprimer :", idSalle); // Vérifiez ici si l'identifiant est correctement passé
+        const response = await fetch(`http://localhost:3001/api/supprimer-salle`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ idSalle: idSalle }) // Utilisez la clé idSalle au lieu de id
+        });
+
+        if (!response.ok) {
+          throw new Error('La suppression de Salle a échoué');
+        }
+
+        await this.fetchsalles();
+        alert('Salle supprimée avec succès');
+      } catch (error) {
+        console.error('Erreur lors de la suppression de Salle :', error);
+        alert('Une erreur est survenue lors de la suppression de Salle');
+      }
+    },
+
+
+
 
     async accepterAvis(idAvis) {
       try {
@@ -242,27 +389,7 @@ export default {
       }
     },
 
-    async modifierFilm() {
-      try {
-        const response = await fetch(`http://localhost:3001/api/modifier-film/${this.filmModif.id_film}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem('token')
-          },
-          body: JSON.stringify(this.filmModif),
-        });
-        if (!response.ok) {
-          throw new Error('La modification du film a échoué');
-        }
-        alert('Film modifié avec succès');
-        this.fermerDialogModificationFilm();
-        this.fetchfilms();
-      } catch (error) {
-        console.error('Erreur lors de la modification du film :', error);
-        alert('Une erreur est survenue lors de la modification du film');
-      }
-    },
+
     // Méthode pour fermer la boîte de dialogue de modification de film
     fermerDialogModificationFilm() {
       this.$refs.dialogModificationFilm.close();
@@ -275,17 +402,23 @@ export default {
         if (!titre) {
           throw new Error('Le titre du film est manquant');
         }
-        const response = await fetch(`http://localhost:3001/api/espace-employe-film/${titre}`);
-        if (!response.ok) {
+        const responseFilm = await fetch(`http://localhost:3001/api/espace-employe-film/${titre}`);
+        if (!responseFilm.ok) {
           throw new Error('La récupération des détails du film pour modification a échoué');
         }
-        const film = await response.json();
+        const film = await responseFilm.json();
         if (!film) {
-          throw new Error('Aucun film trouvé avec cet identifiant');
+          throw new Error('Aucun film trouvé avec ce titre');
         }
-        // Mettre à jour les détails du film à modifier dans filmModif
-        this.filmModif = { ...film };
-        // Ouvrir la boîte de dialogue de modification du film
+        // Assigner l'ID du film récupéré à filmModif
+        this.filmModif.id_film = film.id_film;
+        // Préremplir les détails du film dans l'objet filmModif
+        this.filmModif.titre = film.titre;
+        this.filmModif.description = film.description;
+        this.filmModif.image = film.image;
+        this.filmModif.genre = film.genre;
+        this.filmModif.age_minimum = film.age_minimum;
+        // Ouvrir la boîte de dialogue de modification de film
         this.$refs.dialogModificationFilm.showModal();
       } catch (error) {
         console.error('Erreur lors de la récupération des détails du film pour modification :', error);
@@ -293,8 +426,35 @@ export default {
       }
     },
 
-
-
+    afficherDialogAjoutSalle() {
+      this.$refs.dialogAjoutSalle.showModal();
+    },
+    fermerDialogAjoutSalle() {
+      this.$refs.dialogAjoutSalle.close();
+    },
+    async ajouterSalle() {
+      try {
+        const response = await fetch('http://localhost:3001/api/ajouter-salle', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token') // Ajoutez le token dans l'en-tête
+          },
+          body: JSON.stringify(this.nouvelleSalle),
+        });
+        if (!response.ok) {
+          const errorResponse = await response.json();
+          console.error('Erreur de réponse:', errorResponse);
+          throw new Error('Erreur lors de l\'ajout de salle');
+        }
+        alert('Salle ajouté avec succès');
+        this.fermerDialogAjoutSalle();
+        this.fetchsalles();
+      } catch (error) {
+        console.error('Erreur lors de l\'ajout du salle :', error);
+        alert('Une erreur est survenue lors de l\'ajout du salle');
+      }
+    },
   },
   computed: {
     avisNonAcceptes() {
@@ -308,5 +468,7 @@ export default {
     this.fetchfilms();
     this.fetchsalles();
     this.fetchavis();
+    this.fetchCinemas();
+    this.fetchSalleCinema();
   }
 };

@@ -83,7 +83,8 @@
 
 .dialog_film input,
 .dialog_film textarea,
-.dialog_film label {
+.dialog_film label,
+.dialog_film select {
   margin-bottom: 10px;
   margin-top: 10px;
 }
