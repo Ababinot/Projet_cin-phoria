@@ -1,6 +1,26 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+  - deploy
+
+job_build:
+  stage: build
+  script:
+    - echo "Build phase..."
+    - npm install
+    - npm run build
+
 job_test:
   stage: test
   script:
     - echo "Test phase..."
     - npm install --silent
     - npm run test
+
+job_deploy:
+  stage: deploy
+  script:
+    - echo "Deploy phase..."
+    # Ajoutez ici les commandes pour déployer votre application
