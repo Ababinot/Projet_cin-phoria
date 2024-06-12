@@ -1,5 +1,6 @@
 const connection = require('../config/db');
 const bcrypt = require('bcrypt');
+const emailService = require('../services/emailService');
 
 // Fonction pour valider le mot de passe
 function validatePassword(password) {
@@ -57,7 +58,14 @@ exports.inscription = (req, res) => {
           console.error('Erreur lors de l\'inscription :', error.sqlMessage);
           return res.status(500).json({ error: 'Erreur lors de l\'inscription' });
         }
-        return res.status(201).json({ message: 'Inscription réussie' });
+
+        const subject = 'Confirmation de votre inscription';
+        const text = 'Merci pour votre inscription !';
+        const html = '<p>Merci pour votre inscription !</p>';
+
+        emailService.sendConfirmationEmail(email, subject, text, html);
+
+        return res.status(201).json({ message: 'Inscription réussie, un e-mail de confirmation a été envoyé.' });
       });
     });
   });
