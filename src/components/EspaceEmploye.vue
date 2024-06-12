@@ -31,6 +31,7 @@
                 <button class="secondary-button" @click="fermerDialogAjoutFilm">Fermer</button>
             </div>
         </dialog>
+
         <dialog ref="dialogAjoutSeance" class="dialog_film">
             <label for="date_debut">Date/heure de début :</label>
             <input type="datetime-local" id="date_debut" v-model="nouvelleSeance.date_debut">
@@ -55,6 +56,7 @@
                 <button class="secondary-button" @click="fermerDialogAjoutSeance">Fermer</button>
             </div>
         </dialog>
+
         <dialog ref="dialogModificationFilm" class="dialog_film">
             <input type="hidden" name="id_film" v-model="filmModif.id_film">
 
@@ -72,22 +74,58 @@
                 <button class="primary-button" @click="modifierFilm">Modifier le film</button>
                 <button class="secondary-button" @click="fermerDialogModificationFilm">Fermer</button>
             </div>
+            <div>
+                <h5>Séances</h5>
+                <ul>
+                    <li v-for="seance in filmModif.seances" :key="seance.id_seance">
+                        <p>Date de début: {{ seance.date_debut }}</p>
+                        <p>Date de fin: {{ seance.date_fin }}</p>
+                        <!-- Ajoutez ici d'autres informations sur la séance si nécessaire -->
+                    </li>
+                </ul>
+            </div>
         </dialog>
+        
 
         <h1>Intranet Salles</h1>
         <p>Modifier/supprimer et concevoir les salles qui seront utilisées pour les séances </p>
-        <button class="btn_ajout" @click="ajouterSalle">Ajouter une salle</button>
+        <button class="btn_ajout" @click="afficherDialogAjoutSalle">Ajouter une salle</button>
         <div class="liste-films">
             <div class="film" v-for="salle in espace_employe_salle" :key="salle.num_salle">
                 <h2>Salle n°{{ salle.num_salle }}</h2>
-                <button class="btn_modif" @click="modifierSalle">
+                <button class="btn_modif" @click="afficherDialogModifSalle(salle.id_salle)">
                     Modifier <i class="fa fa-pencil"></i>
                 </button>
-                <button class="btn_supprimer" @click="supprimerSalle">
+                <button class="btn_supprimer" @click="supprimerSalle(salle.id_salle)">
                     Supprimer <i class="fa-regular fa-trash-can"></i>
                 </button>
+
             </div>
         </div>
+        <dialog ref="dialogModifSalle" class="dialog_film">
+            <input type="hidden" name="id_salle" v-model="salleModif.id_salle">
+
+            <label for="num_salle_modif">Numéro de salle :</label>
+            <input type="number" id="num_salle_modif" v-model="salleModif.num_salle">
+
+            <label for="capacite_modif">Capacité :</label>
+            <input type="number" id="capacite_modif" v-model="salleModif.capacite">
+
+            <label for="type_projection_modif">Type de projection :</label>
+            <input type="text" id="type_projection_modif" v-model="salleModif.type_projection">
+
+            <label for="id_cinema_modif">Cinéma :</label>
+            <select id="id_cinema_modif" v-model="salleModif.id_cinema">
+                <option v-for="cinema in cinemas" :key="cinema.id_cinema" :value="cinema.id_cinema">
+                    {{ cinema.nom_cinema }}
+                </option>
+            </select>
+
+            <div class="btn_modif_salle">
+                <button class="primary-button" @click="modifierSalle">Modifier la salle</button>
+                <button class="secondary-button" @click="fermerDialogModifSalle">Fermer</button>
+            </div>
+        </dialog>
         <h1>Supprimer/valider les avis sur un film</h1>
         <p>Supprimer/valider les avis sur un film </p>
         <div class="liste-films">
@@ -102,6 +140,24 @@
                 </button>
             </div>
         </div>
+        <dialog ref="dialogAjoutSalle" class="dialog_film">
+            <label for="num_salle">Numéro de salle :</label>
+            <input type="number" id="num_salle" v-model="nouvelleSalle.num_salle">
+
+            <label for="capacite">Capacité :</label>
+            <input type="number" id="capacite" v-model="nouvelleSalle.capacite">
+
+            <label for="type_projection">Type de projection :</label>
+            <input type="text" id="type_projection" v-model="nouvelleSalle.type_projection">
+
+            <label for="nom_cinema">Nom du cinéma :</label>
+            <input type="number" id="nom_cinema" v-model="nouvelleSalle.id_cinema">
+
+            <div class="btn_ajt_salle">
+                <button class="primary-button" @click="ajouterSalle">Ajouter la salle</button>
+                <button class="secondary-button" @click="fermerDialogAjoutSalle">Fermer</button>
+            </div>
+        </dialog>
     </div>
 </template>
 <script>
@@ -117,6 +173,7 @@ export default {
         this.fetchfilms();
         this.fetchsalles();
         this.fetchavis();
+        this.fetchCinemas();
     }
 };
 </script>
