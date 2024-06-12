@@ -15,8 +15,9 @@ job_build:
 job_test:
   stage: test
   script:
-    - echo "Test phase..."
-    - npm install --silent
+    - echo "Cleaning up npm cache..."
+    - npm cache clean --force
+    - npm install
     - npm run test
 
 job_deploy:
