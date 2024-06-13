@@ -1,9 +1,4 @@
-// src/assets/js/InscriptionUser.js
-
-const emailjs = require('emailjs-com');
-const { emailConfirm } = require('@/emailjs.config');
-
-module.exports = {
+export default {
   data() {
     return {
       email: '',
@@ -84,24 +79,6 @@ module.exports = {
       .then(data => {
         console.log('Réponse du serveur:', data);
         alert('Inscription réussie');
-
-        // Envoyer l'email de confirmation
-        const templateParams = {
-          to_email: this.email,
-          to_name: `${this.prenom} ${this.nom}`,
-          message: 'Merci de vous être inscrit sur notre site!'
-        };
-
-        emailjs.send(emailConfirm.serviceID, emailConfirm.templateID, templateParams, emailConfirm.userID)
-          .then(response => {
-            console.log('Email de confirmation envoyé!', response.status, response.text);
-            alert('Un email de confirmation a été envoyé.');
-          })
-          .catch(error => {
-            console.error('Erreur lors de l\'envoi de l\'email de confirmation:', error);
-            alert('Une erreur est survenue lors de l\'envoi de l\'email de confirmation.');
-          });
-
         // Rafraîchir la page après l'inscription réussie
         window.location.reload();
       })
