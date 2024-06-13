@@ -18,10 +18,32 @@ job_test:
     - echo "Cleaning up npm cache..."
     - npm cache clean --force
     - npm install
-    - npm run test
+    - |
+      # Exécuter l'inscription utilisateur
+      node src/assets/js/InscriptionUser.js
+
+      # Vérifier le statut de l'inscription
+      if [ $? -eq 0 ]; then
+        echo "Inscription réussie!"
+      else
+        echo "Échec de l'inscription."
+        exit 1
+      fi
+
+     
+      node src/assets/js/ContactInfo.js
+
+      
+      if [ $? -eq 0 ]; then
+        echo "Email de confirmation envoyé!"
+      else
+        echo "Échec de l'envoi de l'email de confirmation."
+        exit 1
+      fi
 
 job_deploy:
   stage: deploy
   script:
     - echo "Deploy phase..."
     # Ajoutez ici les commandes pour déployer votre application
+
