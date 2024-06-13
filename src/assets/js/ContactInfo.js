@@ -1,18 +1,30 @@
+import emailjs from 'emailjs-com';
+import { emailjsConfig } from '@/emailjs.config';
 export default {
-    data() {
-      return {
-        nom: '',
-        titre: '',
-        description: '',
+  data() {
+    return {
+      nom: '',
+      titre: '',
+      description: ''
+    };
+  },
+  methods: {
+    envoyer() {
+      const templateParams = {
+        from_name: this.nom,
+        title: this.titre,
+        message: this.description
       };
-    },
-    methods: {
-      envoyer() {
-        // Vous pouvez ajouter ici la logique de connexion, comme l'envoi des données au serveur
-        console.log('Nom:', this.nom);
-        console.log('titre:', this.titre);
-        console.log('description:', this.description);
-        // Vous pouvez également ajouter des validations supplémentaires avant d'envoyer les données
-      }
+
+      emailjs.send(emailjsConfig.serviceID, emailjsConfig.templateID, templateParams, emailjsConfig.userID)
+        .then(response => {
+          console.log('Email sent successfully!', response.status, response.text);
+          alert('Email envoyé avec succès !');
+        })
+        .catch(error => {
+          console.error('Failed to send email:', error);
+          alert('Échec de l\'envoi de l\'email.');
+        });
     }
-  };
+  }
+};
