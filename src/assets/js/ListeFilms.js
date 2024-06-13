@@ -1,7 +1,7 @@
-import moment from 'moment';
-import 'moment/locale/fr';
+const moment = require('moment');
+require('moment/locale/fr');
 
-export default {
+module.exports = {
   props: ['titre', 'description', 'rating'],
 
   data() {
@@ -37,29 +37,24 @@ export default {
         );
       });
 
-      
-    
       // Si aucun critère de filtrage n'est sélectionné, afficher tous les films
       if (this.selectedCinema === '' && this.selectedGenre === '' && this.selectedDate === '') {
         this.filteredFilms = [...this.films]; // Afficher tous les films
         return; // Sortir de la méthode
       }
-    
+
       // Filtrer les films en fonction des critères sélectionnés
       this.filteredFilms = this.films.filter(film => {
         // Vérifier si le film a au moins une séance correspondant aux critères sélectionnés
         return this.filteredSeances.some(seance => seance.nom_film === film.titre);
       });
-    
+
       // Vérifier s'il y a des films filtrés
       if (this.filteredFilms.length === 0) {
         // Aucun film ne correspond aux critères, réinitialiser filteredFilms
         this.filteredFilms = [];
       }
     },
-    
-
-    
 
     formatDescription(description) {
       if (description.length > 100) {
@@ -71,20 +66,18 @@ export default {
     async openPopup(filmIndex) {
       this.selectedFilm = this.filteredFilms[filmIndex];
       const filmName = this.selectedFilm.titre;
-    
+
       // Filtrer les séances en fonction du nom du film sélectionné
       this.filteredSeances = this.seances.filter(seance => seance.nom_film === filmName);
-    
+
       this.$refs.popup.showModal();
     },
-    
 
     closePopup() {
       this.selectedFilm = null;
       this.filteredSeances = [];
       this.$refs.popup.close();
     },
-    
 
     async fetchFilms() {
       try {
@@ -120,7 +113,6 @@ export default {
 
         // Extraire les options uniques pour les cinémas et genres
         this.cinemas = [...new Set(seancesData.map(seance => seance.nom_cinema))];
-        
         this.dates = [...new Set(seancesData.map(seance => moment(seance.date).format('YYYY-MM-DD')))];
       } catch (error) {
         console.error('Erreur lors de la récupération des séances :', error);
@@ -132,7 +124,6 @@ export default {
       return moment(dateString).format('LL');
     },
 
-    
     async fetchSeancesByFilmName(filmName) {
       try {
         const response = await fetch(`http://localhost:3001/api/seances?nom_film=${encodeURIComponent(filmName)}`);
@@ -150,6 +141,4 @@ export default {
     this.fetchSeances(); // Récupérer les séances lors du montage du composant
     this.fetchSeances_cinema_film_filtre(); // Récupérer les séances filtrées lors du montage du composant
   },
-  
-  
 };
