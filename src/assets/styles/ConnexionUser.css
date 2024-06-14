@@ -1,0 +1,69 @@
+.connexion {
+    margin: auto;
+    text-align: center;
+    max-width: 600px; /* Optionnel : pour limiter la largeur du contenu */
+}
+
+
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+      
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.buttonCo {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--couleur-principale);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttonCo:hover {
+    background-color: var(--couleur-secondaire);
+    color: var(--couleur-tertiaire);
+}
+
+.icon {
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 70px;
+}
+
+.icon i {
+    font-size: 60px;
+}
+
+.extra-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.extra-info p {
+    margin-bottom: 5px;
+}
+
+.liens{
+    margin-top: 50px;
+   
+}
+
+.liens2{
+    margin-top: 50px;
+}

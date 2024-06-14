@@ -1,0 +1,35 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+  - deploy
+
+job_build:
+  stage: build
+  script:
+    - echo "Build phase..."
+    - npm install
+    - npm run build
+
+job_test:
+  stage: test
+  script:
+    - echo "Cleaning up npm cache..."
+    - npm cache clean --force
+    - npm install
+    - |
+      # Exécuter les tests de filtrage des films
+      node src/assets/js/ListeFilms.js
+      if [ $? -eq 0 ]; then
+        echo "Tests de filtrage des films réussis!"
+      else
+        echo "Échec des tests de filtrage des films."
+        exit 1
+      fi
+
+job_deploy:
+  stage: deploy
+  script:
+    - echo "Deploy phase..."
+    # Ajoutez ici les commandes pour déployer votre application

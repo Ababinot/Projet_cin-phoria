@@ -1,0 +1,161 @@
+.page-accueil {
+    text-align: center;
+  }
+  
+  .contentA {
+    display: flex;
+    align-items: center;
+    padding: 6rem;
+  }
+  
+  .imageA {
+    max-width: 50%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+  }
+  
+  .img-accueil {
+    width: 100%;
+    height: auto;
+  }
+  
+  .text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+    margin-right: 2rem;
+  }
+  
+  .text h1 {
+    font-size: 4rem;
+  }
+  
+  .text p {
+    font-size: 1rem;
+  }
+  
+  /* Nouveau bloc ajouté */
+  .second-block {
+    background-color: var(--couleur-secondaire);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5rem;
+  }
+  
+  .left {
+    text-align: left;
+  }
+  
+  .left h5 {
+    font-size: 1.5rem;
+  }
+  
+  .left h1 {
+    font-size: 2rem;
+  }
+  
+  .left p {
+    font-size: 1rem;
+  }
+  
+  .right button {
+    background-color: #5B2333;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style pour le carrousel d'images */
+ 
+  
+  .slide h3 {
+    margin-top: 1rem;
+  }
+  
+  .slide p {
+    margin-top: 0.5rem;
+  }
+ 
+  
+  /* Styles pour le quatrième bloc */
+  
+  
+  .left-4 {
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+    padding-right: 2rem;
+    /* Ajoute un espace entre le texte et l'image */
+  }
+  
+  .left-4 h5 {
+    font-size: 1.5rem;
+  }
+  
+  .left-4 h1 {
+    font-size: 2rem;
+  }
+  
+  .left-4 p {
+    font-size: 1rem;
+  }
+  
+  .left-4 button {
+    background-color: #5B2333;
+    /* Couleur de fond primaire */
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Ajoutez ces styles CSS à votre feuille de style existante */
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-container {
+  display: flex;
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1); /* Animation de transition avec une courbe de Bézier */
+  text-align: center;
+  position: center;
+}
+
+.slide {
+  flex: 0 0 auto;
+}
+
+.carousel-img {
+  width: 100%;
+  height: auto;
+  margin-right: 30px;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pagination span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination span.active {
+  background-color: #333;
+}

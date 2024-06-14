@@ -8,96 +8,53 @@
       <router-link class="link" to="/contact">Contact</router-link>
     </div>
     <div class="buttons">
-      <button class="button-empty" @click="handleClick">
-        Se connecter <i class="fa fa-user" aria-hidden="true"></i>
-      </button>
-      <button class="button-solid" @click="reserver">
-        Réserver
-      </button>
+      <template v-if="isLoggedIn">
+        <template v-if="userRole === 'employe'">
+          <button class="button-empty" @click="goToIntranet">
+            Intranet
+          </button>
+        </template>
+        <template v-else-if="userRole === 'administrateur'">
+          <button class="button-empty" @click="goToAdmin">
+            Administration
+          </button>
+        </template>
+        <template v-else>
+          <button class="button-empty" @click="goToAccount">
+            Mon compte <i class="fa fa-user" aria-hidden="true"></i>
+          </button>
+        </template>
+        <button class="button-solid" @click="logout">
+          Déconnexion
+        </button> 
+      </template>
+      <template v-else>
+        <button class="button-empty" @click="handleClick">
+          Se connecter <i class="fa fa-user" aria-hidden="true"></i>
+        </button>
+        <button class="button-solid" @click="reserver">
+          Réserver
+        </button>
+      </template>
     </div>
   </nav>
 </template>
 
 <script>
+import NavBarMenuData from '@/assets/js/NavBarMenu.js'; // Importation des données exportées depuis PageAccueil.js
 export default {
-  
-  methods: {
-    handleClick() {
-      this.$router.push('/connexion');
-    },
-    reserver() {
-      this.$router.push('/reserver');
-    }
+  name: 'NavBarMenu',
+  methods: NavBarMenuData.methods, // Utilisation des méthodes exportées
+  computed: NavBarMenuData.computed, // Utilisation des computed exportées
+  data() {
+    return NavBarMenuData.data(); // Utilisation des données exportées
+  },
+  mounted() {
+    this.fetchUserRole(); // Appeler la méthode pour récupérer le rôle de l'utilisateur lors du montage du composant
   }
-}
-
-
+};
 </script>
 
 <style scoped>
-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  background-color: var(--couleur-secondaire);
-}
-
-.logo {
-  margin-right: auto;
-  width: 100px;
-}
-
-.links {
-  margin-left: auto;
-  display: flex;
-  gap: 2.5rem;
-  margin-right: auto;
-}
-
-.link {
-  text-decoration: none;
-  /* Supprimer les soulignements */
-  color: black;
-  /* Couleur par défaut */
-  transition: transform 0.3s;
-  /* Effet de transition pour le zoom */
-}
-
-.link:hover {
-  color: var(--couleur-principale);
-  /* Couleur au survol */
-  transform: scale(1.1);
-  /* Zoom au survol */
-}
-
-.link:active {
-  text-decoration: none;
-  /* Supprimer les soulignements au clic */
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  /* Espacement entre les boutons */
-}
-
-.button-empty {
-  background-color: transparent;
-  border: 2px solid #5B2333;
-  border-radius: 5px;
-  color: #5B2333;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-.button-solid {
-  background-color: #5B2333;
-  color: var(--couleur-secondaire);
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
+@import '@/assets/styles/NavBarMenu.css';
 </style>

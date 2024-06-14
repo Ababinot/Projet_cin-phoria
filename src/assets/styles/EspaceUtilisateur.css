@@ -1,0 +1,80 @@
+.espace-utilisateur {
+    padding: 20px;
+  }
+  
+  .h1 {
+    margin-bottom: 10px;
+  }
+  
+  .p {
+    margin-bottom: 20px;
+  }
+  
+  .reservations {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+  
+  
+  .reservation {
+    display: flex;
+    flex-direction: line;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    
+  }
+  
+  
+  .reservation-details {
+    display: flex;
+    justify-content: space-between; /* Alignement des éléments sur la largeur */
+  }
+  
+  .reservation-details span {
+    margin-left: 100px; /* Espacement entre chaque élément */
+  }
+  
+  /* Ajoutez un espacement à droite pour le dernier élément afin d'éviter un débordement */
+  .reservation-details span:last-child {
+    margin-right: 80px;
+  }
+  
+  
+  .reservation-date {
+    font-weight: bold;
+  }
+  
+  .button {
+    padding: 5px 10px;
+    background-color: var(--couleur-principale);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .button:hover {
+    background-color:var(--couleur-tertiaire);
+    color: white;
+  }
+  
+  .confirmed {
+    color: green;
+  }
+  
+  .pending {
+    color: orange;
+  }
+  
+  .cancelled {
+    color: red;
+  }
+
+.dialog{
+    border: 0;
+    border-radius: 5px;
+}
